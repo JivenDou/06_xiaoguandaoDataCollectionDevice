@@ -1,0 +1,12 @@
+{
+  "hardDiskdataBase": {
+    "ip": "127.0.0.1",
+    "username": "root",
+    "password": "root",
+    "dataBaseName": "datacollection"
+  },
+  "memoryDatabase": {
+    "ip": "127.0.0.1",
+    "port": 6379
+  }
+}

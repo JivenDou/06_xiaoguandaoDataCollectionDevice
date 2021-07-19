@@ -1,0 +1,4 @@
+[2021-07-19 15:17:19] E:\WorkSpace\DataCollection\connectors\shuizhi_tcp_connector.py-info [49]:Connect to [shuizhi]:[192.168.1.29]:[4001] success !
+[2021-07-19 15:17:19] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-19 15:17:19] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [57]:Connect to [wxt536]:[192.168.1.29]:[4002] success !
+[2021-07-19 15:17:19] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
