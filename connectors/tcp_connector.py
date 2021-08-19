@@ -105,7 +105,7 @@ class TcpConnector(Connector, threading.Thread):
                 time.sleep(0.2)
                 data = self.__sock.recv(self.__size)
                 data = self.__converter.convert(self.__data_point_config, data)
-                print(data)
+                # print(data)
                 if data:
                     if data != "error" and data != 'pass':
                         self.__storager.real_time_data_storage(data)

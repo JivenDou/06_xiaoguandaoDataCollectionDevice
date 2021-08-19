@@ -42,7 +42,6 @@ class AdcpConverter(Converter):
                             format_data[j] = format_data[j] - index['offset']
                         dict[name] = format_data[j]
                         j += 1
-                    print(dict)
                     return dict
                 elif len(raw_data) > 0:
                     return "pass"

@@ -98,7 +98,9 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
         dissolved_oxygen = bytes.fromhex('010315CF0005B1FA')  # 读溶解氧发送指令，接收数据长度：15
         temperature_salinity = bytes.fromhex('010300FF001AF431')  # 读温度和盐度发送指令，接收数据长度：52 + 5 = 57
         PH = bytes.fromhex('010301D90002140C')  # 读PH发送指令，数据接收长度：4 + 5 = 9
-        chlorophyll = bytes.fromhex('010316A1000411A3')  # 读叶绿素发送指令，接收数据长度：8 + 5 = 13
+        # chlorophyll = bytes.fromhex('010316A1000411A3')  # 读叶绿素发送指令，接收数据长度：8 + 5 = 13
+        chlorophyll = bytes.fromhex('010316A80004C1A1')  # 读叶绿素发送指令，接收数据长度：8 + 5 = 13
+
         # depth = bytes.fromhex('0103046F0012F4EA')  # 读深度发送指令，接收数据长度：36 + 5 = 41
         # depth = bytes.fromhex('0103155100035016')  # 读深度发送指令，接收数据长度：6 + 5 = 11
         depth = bytes.fromhex('010315660003E1D8')  # 读深度发送指令，接收数据长度：6 + 5 = 11
@@ -137,6 +139,7 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
             if self.__stopped:
                 break
 
+    # 水质解析器
     def save_format_data(self, t, name):
         data = {}
         for index in self.__data_point_config:
@@ -145,7 +148,8 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                     t = t / index['divisor']
                 if index['offset'] is not None:
                     t = t - index['offset']
-                if index['low_limit'] is not None and index['up_limit'] is not None and index['low_limit'] <= t <= index['up_limit']:
+                if index['low_limit'] is not None and index['up_limit'] is not None and index['low_limit'] <= t <= \
+                        index['up_limit']:
                     data = {'c' + str(index['serial_number']): t}
                     self.__storager.real_time_data_storage(data)
         print(data)

@@ -41,11 +41,6 @@ Utility.start_connectors(connector_config)
 async def read_point_data(request):
     list = request.json['pointList']
     dict = gateway_storage.get_real_data(list)
-    '''
-    data_list = gateway_storage.get_point_info(list)
-    for info in data_list:
-        info['value'] = dict["c"+str(info['serial_number'])]
-    '''
     return response.json(dict)
 
 
@@ -122,13 +117,12 @@ async def notify_server_started_after_five_seconds():
 if __name__ == "__main__":
     alarm1 = Alarm()
     threading.Thread(target=alarm1.overrun_alarm).start()
-    # alarm2 = Alarm()
     # threading.Thread(target=alarm2.displacement_alarm).start()
     historicalDataStorage = HistoricalDataStorage()
     threading.Thread(target=historicalDataStorage.run).start()
     # app.add_task(overrun_alarm(app, alarm))
     # app.add_task(displacement_alarm(app, alarm))
-    # app.add_task(notify_server_started_after_five_seconds()) # 气象仪降雨量每日清零
+    # app.add_task(notify_server_started_after_five_seconds())  # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
     app.run(host="0.0.0.0", port=8000)
 # pyinstaller -F -p C:\Users\wenge\AppData\Local\Programs\Python\Python38\Lib\site-packages  gateway.spec
-
+# pyinstaller -F -p D:\DevTools\Python38\Lib\site-packages  gateway.spec

@@ -2,3 +2,176 @@
 [2021-07-19 15:17:19] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
 [2021-07-19 15:17:19] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [57]:Connect to [wxt536]:[192.168.1.29]:[4002] success !
 [2021-07-19 15:17:19] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-23 10:24:21] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [57]:Connect to [td266]:[192.168.1.29]:[4001] success !
+[2021-07-23 10:24:21] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-23 10:24:21] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-23 10:24:34] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-23 10:24:34] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [57]:Connect to [td266]:[192.168.1.29]:[4001] success !
+[2021-07-23 10:24:34] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-23 10:25:03] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [57]:Connect to [td266]:[192.168.1.29]:[4001] success !
+[2021-07-23 10:25:03] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-23 10:25:03] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:01:59] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:01:59] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:02:01] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [td266]:[192.168.1.29]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-07-26 09:02:03] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[192.168.1.29]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-07-26 09:06:21] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:06:21] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:07:03] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:07:03] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:11:09] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:11:09] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:12:08] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:12:08] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:12:44] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:12:44] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:14:25] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:14:25] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:14:44] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:14:44] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:14:52] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:14:52] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:23:36] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:23:36] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:24:04] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:24:04] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:24:14] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:24:14] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:24:52] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-07-26 09:25:21] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-07-26 09:25:21] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:09:42] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:09:42] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-08-17 15:09:43] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:09:43] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:09:43] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:09:43] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:09:45] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:45] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:45] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:45] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:52] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:52] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:52] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:52] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:59] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:59] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:59] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:09:59] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:07] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-08-17 15:10:07] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:10:11] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:10:11] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-08-17 15:10:13] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:13] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:13] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:13] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:22] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:22] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:22] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:22] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:49] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-08-17 15:10:49] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:10:51] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:51] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:51] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:51] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:10:53] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:53] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:53] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:10:53] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:00] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:00] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:00] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:00] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:07] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:07] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:07] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:07] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:14] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:14] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:14] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:11:14] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:12:26] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:12:26] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-08-17 15:12:28] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:12:28] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:12:28] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:12:28] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:12:30] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:12:30] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:12:30] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:12:30] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:01] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-08-17 15:13:01] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:13:03] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:13:03] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:13:03] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:13:03] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:13:05] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:05] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:05] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:05] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:12] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:12] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:12] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:12] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:19] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:19] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:19] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:19] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:26] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:26] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:26] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:26] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:33] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:33] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:33] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:33] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:40] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:40] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:40] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:40] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:47] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:47] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:47] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:47] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:54] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:54] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:54] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:13:54] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:01] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:01] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:01] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:01] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:08] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:08] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:08] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:08] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:13] E:\WorkSpace\DataCollection\historical_data_storage.py-info [16]:[HistoricalDataStorage] - Historical data storage module is running!
+[2021-08-17 15:14:13] E:\WorkSpace\DataCollection\alarm.py-info [53]:[overrun_alarm] - Over run alarm module is running!
+[2021-08-17 15:14:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:14:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:14:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:14:15] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [60]:Connect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!!
+[2021-08-17 15:14:17] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:17] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:17] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:17] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:24] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:24] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:24] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:24] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:31] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:31] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:31] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:31] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:38] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:38] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [wxt536]:[127.0.0.1]:[4001] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:38] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [td266]:[127.0.0.1]:[4003] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:38] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [adcp]:[127.0.0.1]:[4005] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..
+[2021-08-17 15:14:45] E:\WorkSpace\DataCollection\connectors\tcp_connector.py-info [76]:Reconnect to [sm140]:[127.0.0.1]:[4002] failed:[WinError 10061] 由于目标计算机积极拒绝，无法连接。 !!! Continue reconnect in 5s..

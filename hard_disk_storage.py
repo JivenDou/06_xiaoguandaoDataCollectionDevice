@@ -20,7 +20,7 @@ class HardDiskStorage():
         try:
             self.conn = pymysql.connect(host=self.host, user=self.user, password=self.passwd, database=self.db, port=self.port, autocommit=True)
             return True
-        except:
+        except Exception as e:
             return False
 
     def _reConn(self, num=28800, stime=3):  # 重试连接总次数为1天,这里根据实际情况自己设置,如果服务器宕机1天都没发现就......
@@ -56,7 +56,7 @@ class HardDiskStorage():
         else:
             sql = "SELECT * FROM data_point_tbl"
         try:
-            # self._reConn()
+            self._reConn()
             self.cursor = self.conn.cursor(cursor=pymysql.cursors.DictCursor)
             self.cursor.execute(sql)
             results = self.cursor.fetchall()

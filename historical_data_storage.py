@@ -54,7 +54,7 @@ class HistoricalDataStorage:
                     save_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(save_time))
                     serial_number_list = item['serial_number_list']
                     real_time_data = self._storage.memoryStorage.get_value(serial_number_list)  # 根据键列表查询实时数据库
-                    print(real_time_data)
+                    # print(real_time_data)
                     flag = False  # 是否允许存储标志位
                     for key in real_time_data:
                         # 值全部为空，不允许存储

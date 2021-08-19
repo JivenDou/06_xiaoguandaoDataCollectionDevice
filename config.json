@@ -2,8 +2,8 @@
   "hardDiskdataBase": {
     "ip": "127.0.0.1",
     "username": "root",
-    "password": "root",
-    "dataBaseName": "datacollection"
+    "password": "sea12345",
+    "dataBaseName": "shucai"
   },
   "memoryDatabase": {
     "ip": "127.0.0.1",

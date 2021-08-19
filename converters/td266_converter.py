@@ -12,7 +12,7 @@ class TD266Converter(Converter):
         # decode('utf-8'): data = 4420	1194	29.823	104.507	-7.471	28.872	253.153	9.369	1.816	91.491	-59.593	100	9.542	9.589	0.015
         # split('\t'): data = ['4420', '1194', '29.823', '104.507', '-7.471', '28.872', '253.153', '9.369', '1.816', '91.491', '-59.593', '100', '9.542', '9.589', '0.015']
         # print(len(data), time.strftime('%Y-%m-%d %H:%M:%S'), data)
-        pattern_start = b"4420\t1194"
+        pattern_start = b"4420"
         # pattern_end = b"\r\n"
         index_start = re.search(pattern_start, data)  # 查找字符串得到开始索引
         # index_end = re.search(pattern_end, data)
@@ -20,7 +20,7 @@ class TD266Converter(Converter):
         if index_start:
             index_start = index_start.span()[0]
             # index_end = index_end.span()[1]
-            data = data[index_start:25]  # 只获取流速和流向，大约取25个字符即可
+            data = data[index_start:75]  # 只获取流速和流向，大约取25个字符即可
             # print(data)
             data = data.decode('utf-8').split('\t')
             # print(data)

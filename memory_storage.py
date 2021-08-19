@@ -1,14 +1,15 @@
 import redis
 
 
-class MemoryStorage():
+class MemoryStorage:
     def __init__(self, config):
         self.ip = config['ip']
         self.port = config['port']
-        self.conn = redis.StrictRedis(host=self.ip, port=self.port, db=0, decode_responses=True)
+        self.conn = None
+        self.connected()
 
     def connected(self):
-        pass
+        self.conn = redis.StrictRedis(host=self.ip, port=self.port, db=0, decode_responses=True)
 
     def set_value(self, data_dict):
         try:
@@ -23,20 +24,23 @@ class MemoryStorage():
             return True
 
     def get_value(self, keys):
-        dict = {}
+        data_dict = {}
         try:
             pipe = self.conn.pipeline(transaction=True)
             for index in range(len(keys)):
                 pipe.get(keys[index])
             result = pipe.execute()
             for index in range(len(keys)):
-                dict[keys[index]] = result[index]
-            return dict
+                data_dict[keys[index]] = result[index]
+            return data_dict
         except Exception as e:
             return e
 
     def is_connected(self):
-        pass
+        if self.conn:
+            return True
+        else:
+            return False
 
     def re_connected(self):
-        pass
+        self.conn = redis.StrictRedis(host=self.ip, port=self.port, db=0, decode_responses=True)
