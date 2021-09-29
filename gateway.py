@@ -123,6 +123,6 @@ if __name__ == "__main__":
     # app.add_task(overrun_alarm(app, alarm))
     # app.add_task(displacement_alarm(app, alarm))
     # app.add_task(notify_server_started_after_five_seconds())  # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8001)
 # pyinstaller -F -p C:\Users\wenge\AppData\Local\Programs\Python\Python38\Lib\site-packages  gateway.spec
 # pyinstaller -F -p D:\DevTools\Python38\Lib\site-packages  gateway.spec

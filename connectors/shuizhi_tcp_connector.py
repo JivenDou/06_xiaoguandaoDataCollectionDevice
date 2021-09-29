@@ -94,18 +94,13 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
     def run(self):
         self.__connect()
         self.__connected = True
-        # dissolved_oxygen = bytes.fromhex('01030025000AD406')  # 读溶解氧发送指令，接收数据长度：25
-        dissolved_oxygen = bytes.fromhex('010315CF0005B1FA')  # 读溶解氧发送指令，接收数据长度：15
-        temperature_salinity = bytes.fromhex('010300FF001AF431')  # 读温度和盐度发送指令，接收数据长度：52 + 5 = 57
-        PH = bytes.fromhex('010301D90002140C')  # 读PH发送指令，数据接收长度：4 + 5 = 9
-        # chlorophyll = bytes.fromhex('010316A1000411A3')  # 读叶绿素发送指令，接收数据长度：8 + 5 = 13
-        chlorophyll = bytes.fromhex('010316A80004C1A1')  # 读叶绿素发送指令，接收数据长度：8 + 5 = 13
-
-        # depth = bytes.fromhex('0103046F0012F4EA')  # 读深度发送指令，接收数据长度：36 + 5 = 41
-        # depth = bytes.fromhex('0103155100035016')  # 读深度发送指令，接收数据长度：6 + 5 = 11
-        depth = bytes.fromhex('010315660003E1D8')  # 读深度发送指令，接收数据长度：6 + 5 = 11
-        # 01 03 06 40 BA FD 82 00 00 67 EA 返回数据测试
-
+        dissolved_oxygen = bytes.fromhex('02 03 00 25 00 08 55 F4')  # 读溶解氧发送指令，接收数据长度：21
+        temperature = bytes.fromhex('01 03 15 4A 00 02 E1 D1')  # 读温度和盐度发送指令，接收数据长度：9
+        salinity = bytes.fromhex('01 03 15 97 00 04 F1 E9')  # 读温度和盐度发送指令，接收数据长度：13
+        PH = bytes.fromhex('01 03 01 D9 00 0A 15 CA')  # 读PH发送指令，数据接收长度：25
+        chlorophyll = bytes.fromhex('01 03 16 A8 00 07 81 A0')  # 读叶绿素发送指令，接收数据长度：19
+        depth = bytes.fromhex('01 03 15 66 00 03 E1 D8')  # 读深度发送指令，接收数据长度：11
+        turbidity = bytes.fromhex('01 03 15 F2 00 05 20 36')  # 读浊度发送指令，接收数据长度：15
         # 创建接收线程
         threading.Thread(target=self.SocketReceive, args=(self.__sock,)).start()
 
@@ -114,6 +109,7 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
             if not self.__connected:
                 continue
             try:
+
                 if sendFlag == 0:
                     self.__sock.send(depth)
                 elif sendFlag == 1:
@@ -121,16 +117,24 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 elif sendFlag == 2:
                     self.__sock.send(depth)
                 elif sendFlag == 3:
-                    self.__sock.send(temperature_salinity)
+                    self.__sock.send(temperature)
                 elif sendFlag == 4:
                     self.__sock.send(depth)
                 elif sendFlag == 5:
-                    self.__sock.send(PH)
+                    self.__sock.send(salinity)
                 elif sendFlag == 6:
                     self.__sock.send(depth)
                 elif sendFlag == 7:
-                    self.__sock.send(chlorophyll)
+                    self.__sock.send(PH)
                 elif sendFlag == 8:
+                    self.__sock.send(depth)
+                elif sendFlag == 9:
+                    self.__sock.send(chlorophyll)
+                elif sendFlag == 10:
+                    self.__sock.send(depth)
+                elif sendFlag == 11:
+                    self.__sock.send(turbidity)
+                elif sendFlag == 12:
                     self.__sock.send(depth)
             except Exception as e:
                 self.__connected = False
@@ -141,6 +145,8 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
 
     # 水质解析器
     def save_format_data(self, t, name):
+        if name == '深度':
+            print(name, t, time.strftime('%Y-%m-%d %H:%M:%S'))
         data = {}
         for index in self.__data_point_config:
             if index["io_point_name"] == name:
@@ -152,7 +158,6 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                         index['up_limit']:
                     data = {'c' + str(index['serial_number']): t}
                     self.__storager.real_time_data_storage(data)
-        print(data)
 
     def SocketReceive(self, clientSocket):
         global sendFlag
@@ -176,7 +181,7 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 if length == 11:
                     # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    print('----深度:', t, 'res:', len(res), 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # print('----深度:', t, 'res:', len(res), 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
                     self.save_format_data(t, "深度")
                     sendFlag = 1
             # 溶解氧
@@ -189,10 +194,10 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
                 # print(time.strftime('%Y-%m-%d %H:%M:%S'))
-                if length == 15:
+                if length == 21:
                     # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    print('溶解氧:', t, 'res:', len(res), 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # print('溶解氧:', t, 'res:', len(res), 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
                     self.save_format_data(t, "溶解氧")
                     sendFlag = 2
             # 深度
@@ -207,10 +212,10 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 if length == 11:
                     # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    print('深度:', t, 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # print('深度:', t, 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
                     self.save_format_data(t, "深度")
                     sendFlag = 3
-            # 温度、盐度
+            # 温度
             if sendFlag == 3:
                 try:
                     recvData = clientSocket.recv(1024)
@@ -219,15 +224,11 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 length = len(recvData)
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
-                if length == 57:
+                if length == 9:
                     # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    print('温度:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # print('温度:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
                     self.save_format_data(t, "温度")
-
-                    q = int_to_hex(res[-6], res[-5], res[-4], res[-3])
-                    print('盐度:', q, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
-                    self.save_format_data(q, "盐度")
                     sendFlag = 4
             # 深度
             if sendFlag == 4:
@@ -240,10 +241,10 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 res = struct.unpack(fmt, recvData)
                 if length == 11:
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    print('深度:', t, 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # print('深度:', t, 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
                     self.save_format_data(t, "深度")
                     sendFlag = 5
-            # PH
+            # 盐度
             if sendFlag == 5:
                 try:
                     recvData = clientSocket.recv(1024)
@@ -252,11 +253,11 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 length = len(recvData)
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
-                if length == 9:
+                if length == 13:
                     # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    # print('PH:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
-                    self.save_format_data(t, "PH")
+                    # print('盐度:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
+                    self.save_format_data(t, "盐度")
                     sendFlag = 6
             # 深度
             if sendFlag == 6:
@@ -268,13 +269,11 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
                 if length == 11:
-                    # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    print('深度:', t, 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # print('深度:', t, 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
                     self.save_format_data(t, "深度")
-
                     sendFlag = 7
-            # 叶绿素
+            # PH
             if sendFlag == 7:
                 try:
                     recvData = clientSocket.recv(1024)
@@ -283,10 +282,11 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 length = len(recvData)
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
-                if length == 13:
+                if length == 25:
+                    # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    # print('叶绿素:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
-                    self.save_format_data(t, "叶绿素")
+                    # print('PH:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
+                    self.save_format_data(t, "PH")
                     sendFlag = 8
             # 深度
             if sendFlag == 8:
@@ -300,7 +300,65 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 if length == 11:
                     # print(len(res), res)
                     t = int_to_hex(res[3], res[4], res[5], res[6])
-                    print('深度:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
+                    # print('深度:', t, 'length:', length, time.strftime('%Y-%m-%d %H:%M:%S'))
+                    self.save_format_data(t, "深度")
+                    sendFlag = 9
+            # 叶绿素
+            if sendFlag == 9:
+                try:
+                    recvData = clientSocket.recv(1024)
+                except Exception as e:  # 忽视掉超时
+                    break
+                length = len(recvData)
+                fmt = str(length) + 'B'
+                res = struct.unpack(fmt, recvData)
+                if length == 19:
+                    t = int_to_hex(res[3], res[4], res[5], res[6])
+                    # print('叶绿素:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
+                    self.save_format_data(t, "叶绿素")
+                    sendFlag = 10
+            # 深度
+            if sendFlag == 10:
+                try:
+                    recvData = clientSocket.recv(1024)
+                except Exception as e:  # 忽视掉超时
+                    break
+                length = len(recvData)
+                fmt = str(length) + 'B'
+                res = struct.unpack(fmt, recvData)
+                if length == 11:
+                    # print(len(res), res)
+                    t = int_to_hex(res[3], res[4], res[5], res[6])
+                    # print('深度:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
+                    self.save_format_data(t, "深度")
+                    sendFlag = 11
+            # 浊度
+            if sendFlag == 11:
+                try:
+                    recvData = clientSocket.recv(1024)
+                except Exception as e:  # 忽视掉超时
+                    break
+                length = len(recvData)
+                fmt = str(length) + 'B'
+                res = struct.unpack(fmt, recvData)
+                if length == 15:
+                    # print(len(res), res)
+                    t = int_to_hex(res[3], res[4], res[5], res[6])
+                    # print('浊度:', t, 'len:', len(res), time.strftime('%Y-%m-%d %H:%M:%S'))
+                    self.save_format_data(t, "浊度")
+                    sendFlag = 12
+            # 深度
+            if sendFlag == 12:
+                try:
+                    recvData = clientSocket.recv(1024)
+                except Exception as e:  # 忽视掉超时
+                    break
+                length = len(recvData)
+                fmt = str(length) + 'B'
+                res = struct.unpack(fmt, recvData)
+                if length == 11:
+                    # print(len(res), res)
+                    t = int_to_hex(res[3], res[4], res[5], res[6])
                     self.save_format_data(t, "深度")
                     sendFlag = 0
         clientSocket.close()

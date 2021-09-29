@@ -14,7 +14,6 @@ class WXT536Converter(Converter):
     '''
 
     def convert(self, config, data):
-        # print(data)
         if data:
             dict = {}
             try:
@@ -27,7 +26,6 @@ class WXT536Converter(Converter):
                             dict[name] = re.findall(r"\d+\.?\d*", list[i])[0]
                         else:
                             dict[name] = "null"
-                    # print(dict)
                     return dict
                 elif len(list) > 0:
                     return "pass"

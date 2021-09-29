@@ -3,7 +3,7 @@
     "ip": "127.0.0.1",
     "username": "root",
     "password": "sea12345",
-    "dataBaseName": "shucai"
+    "dataBaseName": "datacollection"
   },
   "memoryDatabase": {
     "ip": "127.0.0.1",

@@ -1,0 +1,4 @@
+
+ƒpython:S101"lRename class "Change_alarm_limit" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Á¡š‰
+Cpython:S5806	"+Rename this variable; it shadows a builtin.(»Ç÷…
+Tpython:S5754"<Specify an exception class to catch or reraise the exception(ˆÊÉ·

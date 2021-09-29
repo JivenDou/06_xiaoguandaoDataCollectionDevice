@@ -1,0 +1,10 @@
+
+qpython:S117"ZRename this local variable "logLevels" to match the regular expression ^[_a-z][a-z0-9_]*$.(†²Ôê
+qpython:S1542"TRename function "createHandlers" to match the regular expression ^[a-z_][a-z0-9_]*$.(ƒñ€şÿÿÿÿ
+qpython:S117("ZRename this local variable "logLevels" to match the regular expression ^[_a-z][a-z0-9_]*$.(†²Ôê
+jpython:S1226&"MIntroduce a new variable or use its initial value before reassigning 'level'.(™‡»Ëúÿÿÿÿ
+ipython:S1000"MRename method "printfNow" to match the regular expression ^[a-z_][a-z0-9_]*$.(‡•¹øÿÿÿÿ
+tpython:S1174"]Rename this local variable "functionName" to match the regular expression ^[_a-z][a-z0-9_]*$.(Š†İ©
+npython:S1174"WRename this local variable "lineNo" to match the regular expression ^[_a-z][a-z0-9_]*$.(Š†İ©
+spython:S1174"\Rename this local variable "unknowField" to match the regular expression ^[_a-z][a-z0-9_]*$.(Š†İ©
+hpython:S1003"QRename method "getLogMessage" to match the regular expression ^[a-z_][a-z0-9_]*$.(ƒ–ÄŒ
