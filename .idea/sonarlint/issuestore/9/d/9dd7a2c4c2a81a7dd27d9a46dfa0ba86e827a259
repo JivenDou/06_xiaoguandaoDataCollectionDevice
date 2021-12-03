@@ -1,30 +1,0 @@
-
-hpython:S1192³"HDefine a constant instead of duplicating this literal 'length:' 5 times.(›¹–±8þ“¼¾·/
-rpython:S1192³"RDefine a constant instead of duplicating this literal '%Y-%m-%d %H:%M:%S' 8 times.(›¹–±8þ“¼¾·/
-}python:S4487"YRemove this unread private attribute '__converter' or refactor the code to use its value.(¾‹—¾ýÿÿÿÿ8þ“¼¾·/
-‚python:S4487"^Remove this unread private attribute '__save_frequency' or refactor the code to use its value.(ƒ˜¾Ñýÿÿÿÿ8þ“¼¾·/
-xpython:S4487"TRemove this unread private attribute '__size' or refactor the code to use its value.(Üú³öúÿÿÿÿ8þ“¼¾·/
-‚python:S4487"^Remove this unread private attribute '__last_seve_time' or refactor the code to use its value.(––‘¿üÿÿÿÿ8þ“¼¾·/
-=python:S125!"Remove this commented out code.(¨âÒ“8þ“¼¾·/
-}python:S1186X"YAdd a nested comment explaining why this method is empty, or complete the implementation.(ã®å§øÿÿÿÿ8þ“¼¾·/
-wpython:S1186["YAdd a nested comment explaining why this method is empty, or complete the implementation.(Í•‡ 8ÿ“¼¾·/
-Jpython:S1481‡"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ8ÿ“¼¾·/
-spython:S3776^"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(¯Œåò8ÿ“¼¾·/
-=python:S125a"Remove this commented out code.(•‹Õ8ÿ“¼¾·/
-Bpython:S125e"Remove this commented out code.(¨Àåþÿÿÿÿ8ÿ“¼¾·/
-Bpython:S125h"Remove this commented out code.(ÒäÇÿÿÿÿÿ8ÿ“¼¾·/
-|python:S117"XRename this parameter "clientSocket" to match the regular expression ^[_a-z][a-z0-9_]*$.(€õ‡Œûÿÿÿÿ8ÿ“¼¾·/
-wpython:S117©"YRename this local variable "recvData" to match the regular expression ^[_a-z][a-z0-9_]*$.(‰¡ý{8ÿ“¼¾·/
-Jpython:S1481ª"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481º"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481Ê"%Remove the unused local variable "e".(ÃÔ¥æøÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481Ù"%Remove the unused local variable "e".(ÃÔ¥æøÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481ì"%Remove the unused local variable "e".(ÃÔ¥æøÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481ú"%Remove the unused local variable "e".(ÃÔ¥æøÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481‰"%Remove the unused local variable "e".(ÃÔ¥æøÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481™"%Remove the unused local variable "e".(ÃÔ¥æøÿÿÿÿ8ÿ“¼¾·/
-Jpython:S1481§"%Remove the unused local variable "e".(ÃÔ¥æøÿÿÿÿ8ÿ“¼¾·/
-ypython:S3776"TRefactor this function to reduce its Cognitive Complexity from 73 to the 15 allowed.(€õ‡Œûÿÿÿÿ8ÿ“¼¾·/
->python:S125 "Remove this commented out code.(‘Îúµ8ÿ“¼¾·/
->python:S125¤"Remove this commented out code.(ãñãÑ8ÿ“¼¾·/
-Cpython:S125µ"Remove this commented out code.(¼×Ø‡üÿÿÿÿ8ÿ“¼¾·/

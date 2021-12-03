@@ -1,16 +1,0 @@
-
-Ipython:S1481"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ8ˆı´š³/
-ipython:S100"KRename method "_reConn" to match the regular expression ^[a-z_][a-z0-9_]*$.(´ÊÓ8¾˜¿š³/
-[python:S5754!"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8‰ı´š³/
-[python:S57541"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8‰ı´š³/
-[python:S5754A"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8‰ı´š³/
-[python:S5754X"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8‰ı´š³/
-[python:S5754e"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8‰ı´š³/
-xpython:S117i"URename this parameter "eventName" to match the regular expression ^[_a-z][a-z0-9_]*$.(¨°æıÿÿÿÿ8‰ı´š³/
-xpython:S117t"[Rename this local variable "columnName" to match the regular expression ^[_a-z][a-z0-9_]*$.(â§ò^8‰ı´š³/
-wpython:S117s"YRename this local variable "dataType" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ï“İ8‰ı´š³/
-[python:S5754{"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Šı´š³/
-wpython:S117"SRename this parameter "timeNow" to match the regular expression ^[_a-z][a-z0-9_]*$.(¯İŠúÿÿÿÿ8Šı´š³/
-\python:S5754¦"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Šı´š³/
-\python:S5754´"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Šı´š³/
-\python:S5754Á"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Šı´š³/

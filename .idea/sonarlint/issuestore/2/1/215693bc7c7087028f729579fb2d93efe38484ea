@@ -1,16 +1,0 @@
-
-=python:S125"Remove this commented out code.(‘ЉхҐ8ВХФ¬·/
-Opython:S5806*"+Rename this variable; it shadows a builtin.(№щ’Ощяяяя8ВХФ¬·/
-Opython:S5806+"+Rename this variable; it shadows a builtin.(ЪаЋыяяяяя8ВХФ¬·/
-Opython:S58061"+Rename this variable; it shadows a builtin.(’ь§†ъяяяя8ВХФ¬·/
-Opython:S5806?"+Rename this variable; it shadows a builtin.(№щ’Ощяяяя8ВХФ¬·/
-Opython:S5806@"+Rename this variable; it shadows a builtin.(ЪаЋыяяяяя8ВХФ¬·/
-Jpython:S1481F"&Remove the unused local variable "id".(ч№оґяяяяя8ВХФ¬·/
-Hpython:S1481G")Remove the unused local variable "value".(Єлці8ВХФ¬·/
-Opython:S5806F"+Rename this variable; it shadows a builtin.(ч№оґяяяяя8ГХФ¬·/
-Jpython:S5806O"+Rename this variable; it shadows a builtin.(ЪЏёл8ГХФ¬·/
-=python:S125["Remove this commented out code.(лгќЧ8ГХФ¬·/
-}python:S117m"ZRename this local variable "timeArray" to match the regular expression ^[_a-z][a-z0-9_]*$.(дД“Бщяяяя8ГХФ¬·/
-~python:S117n"[Rename this local variable "timeStampA" to match the regular expression ^[_a-z][a-z0-9_]*$.(вЏ‘іэяяяя8ГХФ¬·/
-ypython:S117o"[Rename this local variable "timeStampB" to match the regular expression ^[_a-z][a-z0-9_]*$.(вџы8ГХФ¬·/
-Bpython:S125{"Remove this commented out code.(ЅФЏЙшяяяя8ГХФ¬·/
