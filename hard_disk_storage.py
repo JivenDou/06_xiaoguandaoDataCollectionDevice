@@ -1,3 +1,7 @@
+import datetime
+import json
+
+import openpyxl
 import pymysql
 import traceback
 import time
@@ -88,6 +92,92 @@ class HardDiskStorage():
         except:
             print(traceback.format_exc())
             return None
+
+    # 历史查询接口（new）--------------------------------------------\\
+    def get_total_count_and_first_id(self, search_info):
+        table_name = "table_" + search_info['deviceName']
+        time_begin = search_info['timeBegin']
+        time_end = search_info['timeEnd']
+        sql = "select count(*) from %s where times >= '%s' and times <= '%s';" % (table_name, time_begin, time_end)
+        sql_1 = "select id from %s where times >= '%s' limit 1;" % (table_name, time_begin)
+        try:
+            self._reConn()
+            self.cursor = self.conn.cursor(cursor=pymysql.cursors.DictCursor)
+            self.cursor.execute(sql)
+            count = self.cursor.fetchall()
+            self.cursor.execute(sql_1)
+            first_id = self.cursor.fetchall()
+            if isinstance(first_id, tuple):
+                first_id = list(first_id)
+            result = count + first_id
+            return result
+        except:
+            print(traceback.format_exc())
+            return None
+
+    def get_item_by_id_offset(self, search_info):
+        table_name = "table_" + search_info['deviceName']
+        point_list = search_info['pointList']
+        id_offset = search_info['idOffset']
+        quantity = search_info['quantity']
+        sql = "select times, %s from %s where id  >= %s limit %s" % (','.join(point_list), table_name, id_offset, quantity)
+        try:
+            self._reConn()
+            self.cursor = self.conn.cursor(cursor=pymysql.cursors.DictCursor)
+            self.cursor.execute(sql)
+            results = self.cursor.fetchall()
+            self.cursor.close()
+            return results
+        except:
+            print(traceback.format_exc())
+            return None
+
+    # 历史查询接口（new）--------------------------------------------//
+
+    # 数据导出接口------------------------------------------------\\
+    def quary_table_data(self, search_info):
+        table_name = "table_" + search_info['deviceName']
+        time_begin = search_info['timeBegin']
+        time_end = search_info['timeEnd']
+        point_list = search_info['pointList']
+        point_list_1 = str([i[1:] for i in point_list])[1:-1]
+
+        sql = "select times, %s from %s where times >= '%s' and times <= '%s';" % (','.join(point_list), table_name, time_begin, time_end)
+        sql1 = "select io_point_name from data_point_tbl where serial_number in ( %s );" % point_list_1
+
+        try:
+            self._reConn()
+            self.cursor = self.conn.cursor()
+            self.cursor.execute(sql)
+            res = self.cursor.fetchall()
+            self.cursor.execute(sql1)
+            res1 = self.cursor.fetchall()
+            title = [item[0] for item in res1]
+            title.insert(0, '日期')
+            self.cursor.close()
+        except:
+            print(traceback.format_exc())
+            return None
+        book = openpyxl.Workbook()
+        sheet = book.create_sheet(index=0)
+        # 循环将表头写入到sheet页
+        for i in range(len(title)):
+            sheet.cell(1, i + 1).value = title[i]
+        # 写数据
+        for row in range(0, len(res)):
+            for col in range(0, len(res[row])):
+                cell_val = res[row][col]
+                if isinstance(cell_val, datetime.datetime):
+                    times = cell_val.strftime("%Y-%m-%d %H:%M:%S")
+                    sheet.cell(row + 2, col + 1).value = times
+                else:
+                    sheet.cell(row + 2, col + 1).value = cell_val
+        file_path = (table_name + '.xlsx')
+        savepath = file_path
+        book.save(savepath)
+        return savepath
+
+    # 数据导出接口------------------------------------------------//
 
     def get_connectors(self):
         sql = "SELECT * FROM station_info_tbl WHERE status = 1"

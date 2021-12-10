@@ -49,6 +49,20 @@ class EventStorage:
     def get_command_info(self, station_name):
         return self.hardDiskStorage.get_command_info(station_name)
 
+    # 历史查询接口（new）
+    def get_total_count_and_first_id(self, select_info):
+        data = self.hardDiskStorage.get_total_count_and_first_id(select_info)
+        return data
+
+    def get_item_by_id_offset(self, select_info):
+        data = self.hardDiskStorage.get_item_by_id_offset(select_info)
+        return data
+
+    # 数据导出接口
+    def quary_table_data(self, select_info):
+        data = self.hardDiskStorage.quary_table_data(select_info)
+        return data
+
 
 class Networkerror(RuntimeError):
     def __init__(self, arg):

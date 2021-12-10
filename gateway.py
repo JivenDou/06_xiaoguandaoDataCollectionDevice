@@ -1,14 +1,13 @@
 import asyncio
 import datetime
 import json
+import sys
 import threading
 import time
 
 from sanic import Sanic
-from sanic.response import text, json
 from sanic_cors import CORS, cross_origin
 from sanic import response
-from multiprocessing import Process
 
 # device import
 from event_storage import EventStorage
@@ -52,6 +51,49 @@ async def read_table_data(request):
     return response.text(data_json)
 
 
+# 历史数据库分页查询接口--------------------------------------------\\
+@app.post('/getTotalNumber')
+async def get_total_number(request):
+    dict = request.json
+    data_list = gateway_storage.get_total_count_and_first_id(dict)
+    return response.json(data_list)
+
+
+@app.post("/getItem")
+def get_one_page_content(request):
+    dict = request.json
+    data_list = gateway_storage.get_item_by_id_offset(dict)
+    data_json = Utility.data_encoder(data_list)
+    return response.text(data_json)
+
+
+# 历史数据库分页查询接口--------------------------------------------//
+
+# 历史数据库分页查询接口--------------------------------------------\\
+@app.post('/quary')
+async def quary_table_data(request):
+    dict = request.json
+    res = gateway_storage.quary_table_data(dict)
+    if not res:
+        return response.text("查询参数错误")
+    return response.json({"filename": res})
+
+
+@app.route("/download")
+async def test(request):
+    filename = request.args.get("filename")
+    if sys.platform == 'win32':
+        filepath = './' + filename
+    elif sys.platform == 'linux':
+        filepath = filename
+    return await response.file_stream(
+        filepath,
+        chunk_size=1024,
+        filename=filename
+    )
+
+
+# 历史数据库分页查询接口--------------------------------------------//
 @app.route('/readPointInfo', methods=['POST'])
 async def read_point_info(request):
     data_list = gateway_storage.get_point_info(None)
@@ -123,6 +165,6 @@ if __name__ == "__main__":
     # app.add_task(overrun_alarm(app, alarm))
     # app.add_task(displacement_alarm(app, alarm))
     # app.add_task(notify_server_started_after_five_seconds())  # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
-    app.run(host="0.0.0.0", port=8001)
+    app.run(host="0.0.0.0", port=8000, debug=True)
 # pyinstaller -F -p C:\Users\wenge\AppData\Local\Programs\Python\Python38\Lib\site-packages  gateway.spec
 # pyinstaller -F -p D:\DevTools\Python38\Lib\site-packages  gateway.spec
