@@ -5,6 +5,8 @@ import sys
 import threading
 import time
 
+import win32api
+import wmi
 from sanic import Sanic
 from sanic_cors import CORS, cross_origin
 from sanic import response
@@ -21,10 +23,6 @@ from api_context import ApiContext
 
 app = Sanic(__name__)
 CORS(app)
-system_config = Configuration().get_system_config()
-gateway_storage = EventStorage()
-connector_config = gateway_storage.get_connector_config()
-Utility.start_connectors(connector_config)
 
 
 # config = {"ip": "127.0.0.1",
@@ -67,9 +65,7 @@ def get_one_page_content(request):
     return response.text(data_json)
 
 
-# 历史数据库分页查询接口--------------------------------------------//
-
-# 历史数据库分页查询接口--------------------------------------------\\
+# 历史数据导出接口--------------------------------------------\\
 @app.post('/quary')
 async def quary_table_data(request):
     dict = request.json
@@ -80,7 +76,7 @@ async def quary_table_data(request):
 
 
 @app.route("/download")
-async def test(request):
+async def downlod_file(request):
     filename = request.args.get("filename")
     if sys.platform == 'win32':
         filepath = './' + filename
@@ -93,26 +89,25 @@ async def test(request):
     )
 
 
-# 历史数据库分页查询接口--------------------------------------------//
 @app.route('/readPointInfo', methods=['POST'])
 async def read_point_info(request):
     data_list = gateway_storage.get_point_info(None)
     return response.json(data_list)
 
 
-@app.route('/readStatistics', methods=['POST'])
-async def read_statistics_data(request):
-    list = request.json['pointList']
-    dict = gateway_storage.get_real_data(list)
-    return response.json(dict)
-
-
-@app.route('/write', methods=['POST'])
-async def write_data(request):
-    id = request.json["id"]
-    value = request.json["value"]
-    connector = request.json["device"]
-    connector.send_command("zz")
+# @app.route('/readStatistics', methods=['POST'])
+# async def read_statistics_data(request):
+#     list = request.json['pointList']
+#     dict = gateway_storage.get_real_data(list)
+#     return response.json(dict)
+#
+#
+# @app.route('/write', methods=['POST'])
+# async def write_data(request):
+#     id = request.json["id"]
+#     value = request.json["value"]
+#     connector = request.json["device"]
+#     connector.send_command("zz")
 
 
 @app.route('/api', methods=['POST'])
@@ -130,6 +125,31 @@ async def read_statistics_data(request):
     return response.json(list)
 
 
+# def verify_cpu_code():
+#     # 获取配置文件中CPU序列号
+#     config_handle = Configuration()
+#     config = config_handle.get_system_config()
+#     cpu_code_from_config_file = config['code']
+#     # 获取当前设备CPU序列号
+#     c = wmi.WMI()
+#     for cpu in c.Win32_Processor():
+#         cpu_code = cpu.ProcessorId.strip()
+#
+#     # 判断是否匹配
+#     if cpu_code == cpu_code_from_config_file:
+#         return True
+#     else:
+#         return False
+
+
+# @app.post('/verify')
+# def verify_app(request):
+#     if is_active:
+#         return response.json({'status': 'yes'})
+#     else:
+#         return response.json({'status': 'no'})
+
+
 # def overrun_alarm(alarms):
 #     print('async overrun_alarm')
 #     await asyncio.sleep(.1)
@@ -144,6 +164,8 @@ async def read_statistics_data(request):
 async def notify_server_started_after_five_seconds():
     while True:
         await asyncio.sleep(10)
+        if 'wxt536' not in Utility.available_connectors:
+            break
         connector = Utility.available_connectors["wxt536"]
         data = "0XZRU\r\n"
         # 8:00:00-8:01:00 everyday
@@ -157,6 +179,13 @@ async def notify_server_started_after_five_seconds():
 
 
 if __name__ == "__main__":
+    system_config = Configuration().get_system_config()
+    print(system_config)
+    gateway_storage = EventStorage()
+    connector_config = gateway_storage.get_connector_config()
+    # is_active = verify_cpu_code()
+    # if is_active:
+    Utility.start_connectors(connector_config)
     alarm1 = Alarm()
     threading.Thread(target=alarm1.overrun_alarm).start()
     # threading.Thread(target=alarm2.displacement_alarm).start()
@@ -164,7 +193,9 @@ if __name__ == "__main__":
     threading.Thread(target=historicalDataStorage.run).start()
     # app.add_task(overrun_alarm(app, alarm))
     # app.add_task(displacement_alarm(app, alarm))
-    # app.add_task(notify_server_started_after_five_seconds())  # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
+    app.add_task(notify_server_started_after_five_seconds())
+    app.run(host="0.0.0.0", port=8000)
+
 # pyinstaller -F -p C:\Users\wenge\AppData\Local\Programs\Python\Python38\Lib\site-packages  gateway.spec
 # pyinstaller -F -p D:\DevTools\Python38\Lib\site-packages  gateway.spec

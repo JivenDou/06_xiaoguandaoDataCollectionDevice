@@ -1,6 +1,20 @@
 import json
 import os
 import sys
+import base64
+
+import pyDes
+
+
+def DesEncrypt(string):
+    Des_Key = "u357asdu"  # Key
+    Des_IV = "u357asdu"  # 自定IV向量
+    string = base64.b64decode(string)
+    k = pyDes.des(Des_Key, pyDes.CBC, Des_IV, pad=None,
+                  padmode=pyDes.PAD_PKCS5)
+    decryptStr = k.decrypt(string)
+    # print(decryptStr)
+    return decryptStr
 
 
 class Configuration:
@@ -16,6 +30,10 @@ class Configuration:
             config_file_path = 'config.json'
         with open(config_file_path) as json_file:
             config = json.load(json_file)
+        # 解密密码和序列号
+        config['hardDiskdataBase']['password'] = DesEncrypt(
+            config['hardDiskdataBase']['password']).decode('utf-8')
+        # config['code'] = DesEncrypt(config['code']).decode('utf-8')
         return config
 
     def set_config(self):

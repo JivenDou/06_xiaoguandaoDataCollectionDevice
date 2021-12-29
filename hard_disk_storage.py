@@ -132,7 +132,7 @@ class HardDiskStorage():
             print(traceback.format_exc())
             return None
 
-    # 历史查询接口（new）--------------------------------------------//
+    # --------------------------------------------//
 
     # 数据导出接口------------------------------------------------\\
     def quary_table_data(self, search_info):
@@ -177,7 +177,21 @@ class HardDiskStorage():
         book.save(savepath)
         return savepath
 
-    # 数据导出接口------------------------------------------------//
+    # ------------------------------------------------//
+
+    # 获取insitu指令接口
+    def get_in_situ_command(self):
+        sql = "select * from shuizhi_insitu_instruct;"
+        try:
+            self._reConn()
+            self.cursor = self.conn.cursor(cursor=pymysql.cursors.DictCursor)
+            self.cursor.execute(sql)
+            results = self.cursor.fetchall()
+            self.cursor.close()
+            return results
+        except:
+            print(traceback.format_exc())
+            return None
 
     def get_connectors(self):
         sql = "SELECT * FROM station_info_tbl WHERE status = 1"

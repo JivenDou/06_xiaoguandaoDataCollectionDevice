@@ -2,11 +2,12 @@
   "hardDiskdataBase": {
     "ip": "127.0.0.1",
     "username": "root",
-    "password": "sea12345",
+    "password": "sA3b20GdDAfq/UViWnJ63g==",
     "dataBaseName": "shucai"
   },
   "memoryDatabase": {
     "ip": "127.0.0.1",
     "port": 6379
-  }
+  },
+  "code": "18srfpUIeKFw+z/itQkUHbbi5nEh+4iF"
 }

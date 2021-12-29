@@ -63,6 +63,11 @@ class EventStorage:
         data = self.hardDiskStorage.quary_table_data(select_info)
         return data
 
+    # 获取insitu指令
+    def get_in_situ_command(self):
+        data = self.hardDiskStorage.get_in_situ_command()
+        return data
+
 
 class Networkerror(RuntimeError):
     def __init__(self, arg):
