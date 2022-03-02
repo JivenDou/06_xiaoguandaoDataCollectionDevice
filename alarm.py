@@ -2,29 +2,31 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
+import logging
+import threading
 import time
 from event_storage import EventStorage
-from log import Log
 
 
-class Alarm:
+class Alarm(threading.Thread):
     def __init__(self):
+        super(Alarm, self).__init__()
         self._storage = EventStorage()
         self._save_frequency = 5
         self._last_save_time = 0
-        self._log = Log()
+
+    def run(self) -> None:
+        self.overrun_alarm()
 
     def get_real_time_data(self):
         """
         :return: data_dict {'c1': '064', 'c2': '0.1', 'c3': '20.3', 'c4': '43.2', 'c5': '1025.1', 'c6': '0.25', 'c81': '29.823', 'c82': '104.507', 'c83': '253.153'...}
         """
         point_info = self._storage.hardDiskStorage.get_point_info(point_tuple=None)
-        # print(point_info)
         keys_list = []
         for index in point_info:
             keys_list.append('c' + str(index['serial_number']))
         data_dict = self._storage.memoryStorage.get_value(keys_list)
-        # print(data_dict)
         return data_dict
 
     def get_point_table(self):
@@ -50,17 +52,14 @@ class Alarm:
 
     # 越限报警
     def overrun_alarm(self):
-        self._log.info('[overrun_alarm] - Over run alarm module is running!')
+        logging.info('Over run alarm module is running!')
         try:
             point_info = self.get_point_table()
             while 1:
                 self.update_point_table(point_info)
-                # print(time.time(), point_info[0]['alarm_low_limit'], point_info[0]['alarm_up_limit'])
                 data_dict = self.get_real_time_data()
-                # print(data_dict['c1'])
                 for index in point_info:
                     key = 'c' + str(index['serial_number'])
-                    # print('addr = ', addr, 'addr type = ', type(addr))
                     if data_dict[key]:  # 数据不为空且报警状态为零
                         data_dict[key] = float(data_dict[key])
                         if index['alarm_low_limit'] is None or index['alarm_up_limit'] is None:  # 未设置报警限值
@@ -72,22 +71,20 @@ class Alarm:
                                 alarm_unit = {'name': "'" + key + "'", 'data': data_dict[key]}
                                 table_name = "alarm_data_tbl"  # 报警存储表名，可以通过配置文件配置
                                 alarm_time = time.strftime("%Y-%m-%d %H:%M:%S")
-                                # print(alarm_unit)
                                 self._storage.hardDiskStorage.insert_column_many(table_name, alarm_time, alarm_unit)
                                 index['alarm_status'] = 1
                             elif index['alarm_status'] == 1:  # alarm_status == 1：表示本次报警期间非第一次检测的越限
                                 continue
                 time.sleep(1)
         except Exception as e:
-            msg = str(time.strftime("%Y-%m-%d %H:%M:%M"))
-            print(f'{msg}: error in overrun_alarm: {e}')
+            logging.error(e)
 
     def overrun_alarm_storage(self, table_name, save_time, item):
         pass
 
     # 变位报警
     def displacement_alarm(self):
-        self._log.info('[displacement_alarm] - Displacement alarm module is running!')
+        logging.info('[displacement_alarm] - Displacement alarm module is running!')
         point_info = self._storage.hardDiskStorage.get_point_info(point_tuple=None)
 
         keys_list = []
@@ -97,7 +94,6 @@ class Alarm:
 
         while 1:
             now_data_dict = self._storage.memoryStorage.get_value(keys_list)
-            # print(now_data_dict)
             for index in point_info:
                 key = 'c' + str(index['serial_number'])
                 if index['signal_type'] == 'Switch' and now_data_dict[key]:
@@ -114,5 +110,4 @@ class Alarm:
 
 
 if __name__ == '__main__':
-    alarm = Alarm()
-    alarm.overrun_alarm()
+    alarm = Alarm().start()

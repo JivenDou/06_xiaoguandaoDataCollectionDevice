@@ -7,8 +7,7 @@ import threading
 import struct
 import socket
 import queue
-import traceback
-from log import Log
+import logging
 from connector import Connector
 from event_storage import EventStorage
 
@@ -16,7 +15,6 @@ from event_storage import EventStorage
 class TcpConnector(Connector, threading.Thread):
     def __init__(self, name, config, converter):
         super().__init__()
-        self.__log = Log()
         self.__sock = None
         self.__connected = False
         self.__stopped = False
@@ -54,12 +52,10 @@ class TcpConnector(Connector, threading.Thread):
         self.__sock.settimeout(10)  # 设置超时时间3mins
         try:
             self.__sock.connect((self.__ip, self.__port))
-            self.__log.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
-            print(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+            logging.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
             self.__connected = True
         except Exception as e:
-            self.__log.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
-            print(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
+            logging.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
             self.__connected = False
             self.__reconnect()
 
@@ -74,12 +70,10 @@ class TcpConnector(Connector, threading.Thread):
                 self.__sock.settimeout(10)  # 设置超时时间3mins
                 self.__sock.connect((self.__ip, self.__port))
                 self.__connected = True
-                self.__log.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
-                print(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+                logging.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
                 break
             except Exception as e:
-                self.__log.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
-                print(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
+                logging.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
                 self.__connected = False
                 time.sleep(5)
 
@@ -102,7 +96,7 @@ class TcpConnector(Connector, threading.Thread):
             try:
                 self.__sock.send(data.encode(encoding='utf-8'))
             except Exception as e:
-                self.__log.info(f'Send command to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] error:{e}')
+                logging.info(f'Send command to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] error:{e}')
 
     def command_polling(self):
         if self.__connected:
@@ -116,8 +110,7 @@ class TcpConnector(Connector, threading.Thread):
                     if data != "error" and data != 'pass':
                         self.__storager.real_time_data_storage(data)
             except Exception as e:
-                self.__log.error(f'Other error occur [{self.get_name()}]:[{self.__ip}]:[{self.__port}]:{e}')
-                print(f'Other error occur [{self.get_name()}]:[{self.__ip}]:[{self.__port}]:{e}')
+                logging.error(f'Other error occur [{self.get_name()}]:[{self.__ip}]:[{self.__port}]:{e}')
                 time.sleep(5)
                 self.__reconnect()
         else:

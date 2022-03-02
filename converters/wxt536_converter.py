@@ -1,4 +1,4 @@
-import json
+import logging
 import re
 from converter import Converter
 
@@ -32,5 +32,5 @@ class WXT536Converter(Converter):
                 else:
                     return "error"
             except Exception as e:
-                print(e)
+                logging.debug(e)
                 return "error"

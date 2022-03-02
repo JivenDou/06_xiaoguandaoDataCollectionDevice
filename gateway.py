@@ -1,12 +1,8 @@
 import asyncio
 import datetime
-import json
 import sys
-import threading
 import time
-
-import win32api
-import wmi
+import logging
 from sanic import Sanic
 from sanic_cors import CORS, cross_origin
 from sanic import response
@@ -18,8 +14,13 @@ from utility import Utility
 from alarm import Alarm
 from historical_data_storage import HistoricalDataStorage
 from hard_disk_storage import HardDiskStorage
-from log import Log
 from api_context import ApiContext
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='[%(asctime)s] - thread:%(thread)d - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s ',
+                    datefmt='%Y-%m-%d %H:%M:%S',
+                    # filename='gateway.log',  # 调式程序时注释掉本行
+                    )
 
 app = Sanic(__name__)
 CORS(app)
@@ -179,20 +180,12 @@ async def notify_server_started_after_five_seconds():
 
 
 if __name__ == "__main__":
-    system_config = Configuration().get_system_config()
-    print(system_config)
+    system_config = Configuration().get_config()
     gateway_storage = EventStorage()
     connector_config = gateway_storage.get_connector_config()
-    # is_active = verify_cpu_code()
-    # if is_active:
     Utility.start_connectors(connector_config)
-    alarm1 = Alarm()
-    threading.Thread(target=alarm1.overrun_alarm).start()
-    # threading.Thread(target=alarm2.displacement_alarm).start()
-    historicalDataStorage = HistoricalDataStorage()
-    threading.Thread(target=historicalDataStorage.run).start()
-    # app.add_task(overrun_alarm(app, alarm))
-    # app.add_task(displacement_alarm(app, alarm))
+    Alarm().start()
+    HistoricalDataStorage().start()
     # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
     app.add_task(notify_server_started_after_five_seconds())
     app.run(host="0.0.0.0", port=8000)

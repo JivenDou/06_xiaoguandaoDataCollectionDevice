@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import sys
 import base64
@@ -13,28 +14,26 @@ def DesEncrypt(string):
     k = pyDes.des(Des_Key, pyDes.CBC, Des_IV, pad=None,
                   padmode=pyDes.PAD_PKCS5)
     decryptStr = k.decrypt(string)
-    # print(decryptStr)
     return decryptStr
 
 
 class Configuration:
-    def __init__(self):
-        # self.system_config = self.get_system_config()
-        pass
+    def __init__(self, path='config.json'):
+        self.path = path
 
-    def get_system_config(self):
+    def get_config(self):
         """"读取配置"""
-        if sys.platform == 'win32':
-            config_file_path = r'./config.json'
-        elif sys.platform == 'linux':
-            config_file_path = 'config.json'
-        with open(config_file_path) as json_file:
-            config = json.load(json_file)
+        try:
+            with open(self.path) as json_file:
+                config = json.load(json_file)
+            return config
+        except FileNotFoundError as e:
+            logging.error("find config file failed:", e)
+            return None
         # 解密密码和序列号
-        config['hardDiskdataBase']['password'] = DesEncrypt(
-            config['hardDiskdataBase']['password']).decode('utf-8')
+        # config['hardDiskdataBase']['password'] = DesEncrypt(
+        #     config['hardDiskdataBase']['password']).decode('utf-8')
         # config['code'] = DesEncrypt(config['code']).decode('utf-8')
-        return config
 
     def set_config(self):
         pass
@@ -47,3 +46,8 @@ class Configuration:
 
     def updata_device(self):
         pass
+
+
+if __name__ == '__main__':
+    config = Configuration().get_config()
+    print(config)

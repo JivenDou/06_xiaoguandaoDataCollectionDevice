@@ -1,6 +1,6 @@
 import json
 import re
-import time
+import logging
 
 from converter import Converter
 
@@ -11,7 +11,7 @@ class TD266Converter(Converter):
         # 去除结尾\r\n: data = b'4420\t1194\t29.823\t104.507\t-7.471\t28.872\t253.153\t9.369\t1.816\t91.491\t-59.593\t100\t9.542\t9.589\t0.015'
         # decode('utf-8'): data = 4420	1194	29.823	104.507	-7.471	28.872	253.153	9.369	1.816	91.491	-59.593	100	9.542	9.589	0.015
         # split('\t'): data = ['4420', '1194', '29.823', '104.507', '-7.471', '28.872', '253.153', '9.369', '1.816', '91.491', '-59.593', '100', '9.542', '9.589', '0.015']
-        # print(len(data), time.strftime('%Y-%m-%d %H:%M:%S'), data)
+        # logging.debug(len(data), time.strftime('%Y-%m-%d %H:%M:%S'), data)
         pattern_start = b"4420"
         # pattern_end = b"\r\n"
         index_start = re.search(pattern_start, data)  # 查找字符串得到开始索引
@@ -21,9 +21,9 @@ class TD266Converter(Converter):
             index_start = index_start.span()[0]
             # index_end = index_end.span()[1]
             data = data[index_start:75]  # 只获取流速和流向，大约取25个字符即可
-            # print(data)
+            # logging.debug(data)
             data = data.decode('utf-8').split('\t')
-            # print(data)
+            # logging.debug(data)
             dict = {}
             try:
                 for index in config:
@@ -33,10 +33,10 @@ class TD266Converter(Converter):
                         dict[name] = float(data[i])
                     else:
                         dict[name] = round((float(data[i]) / index['divisor']), 2)
-                # print(dict)
+                # logging.debug(dict)
                 return dict
             except Exception as e:
-                print(e)
+                logging.debug(e)
                 return "error"
         else:
             return 'pass'

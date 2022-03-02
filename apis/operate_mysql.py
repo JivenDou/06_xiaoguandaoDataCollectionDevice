@@ -6,7 +6,7 @@ from configuration import Configuration
 
 
 class OperateMysql():
-    config = Configuration().get_system_config()
+    config = Configuration().get_config()
     config = config["hardDiskdataBase"]
 
     def __init__(self, config=config, port=3306, charset='utf8'):
@@ -27,20 +27,19 @@ class OperateMysql():
             print(e)
             return False
 
-    def _reConn(self, num=28800, stime=3): #重试连接总次数为1天,这里根据实际情况自己设置,如果服务器宕机1天都没发现就......
+    def _reConn(self, num=28800, stime=3):  # 重试连接总次数为1天,这里根据实际情况自己设置,如果服务器宕机1天都没发现就......
         _number = 0
         _status = True
         while _status and _number <= num:
             try:
-                self.conn.ping()       #cping 校验连接是否异常
+                self.conn.ping()  # cping 校验连接是否异常
                 _status = False
             except:
-                if self._conn()==True: #重新连接,成功退出
+                if self._conn() == True:  # 重新连接,成功退出
                     _status = False
                     break
-                _number +=1
-                time.sleep(stime)      #连接不成功,休眠3秒钟,继续循环，知道成功或重试次数结束
-
+                _number += 1
+                time.sleep(stime)  # 连接不成功,休眠3秒钟,继续循环，知道成功或重试次数结束
 
     def execute_sql(self, sql):
         try:
@@ -64,7 +63,6 @@ class OperateMysql():
         dict_res = {"table_name": table_name, "begin_time": begin_time, "end_time": end_time}
 
         return dict_res
-
 
 # def database_parameters(self):
 #     config = {'ip': 'localhost', 'username': 'rootroot', 'password': 'rootroot', 'dataBaseName': 'shucai'}

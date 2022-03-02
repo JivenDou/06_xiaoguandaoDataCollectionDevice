@@ -2,7 +2,7 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
-import re
+import logging
 import binascii
 
 from converter import Converter
@@ -63,13 +63,13 @@ class NEMA0183Converter(Converter):
         data = data.split('*')
         # Splits up the NMEA data by comma
         data = data[0].split(',')
-        # print('len:', len(data), 'data:', data)
+        # logging.debug('len:', len(data), 'data:', data)
         if data[0] == '$PMIRWM':
             for index in config:
                 name = 'c' + str(index['serial_number'])
                 i = int(index['address'])
                 dict[name] = data[i]
-            # print(dict)
+            # logging.debug(dict)
             return dict
 
         # return data[0]
@@ -89,11 +89,11 @@ data = "$PMIRR,20210325,033351.719,0.000,0.000,V,0.00*0F"
 data2 = data.split('*')
 data2 = data2[0].split(',')
 
-print(data2[0][3:6])
+logging.debug(data2[0][3:6])
 
 c = NEMA0183Converter(None)
 d = c.checksum(data)  
-print(d)
+logging.debug(d)
 
-print(c.nmea2utc(data2[1]))
+logging.debug(c.nmea2utc(data2[1]))
 '''

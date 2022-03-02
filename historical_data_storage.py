@@ -1,19 +1,18 @@
 import json
 import threading
-
 from event_storage import EventStorage
 import time
-from log import Log
+import logging
 
 
-class HistoricalDataStorage:
+class HistoricalDataStorage(threading.Thread):
     def __init__(self):
+        super(HistoricalDataStorage, self).__init__()
         self._storage = EventStorage()
-        self._log = Log()
 
     # 历史存储主函数
     def run(self):
-        self._log.info('[HistoricalDataStorage] - Historical data storage module is running!')
+        logging.info('Historical data storage module is running!')
         station_info = self._storage.hardDiskStorage.get_connectors()  # 获取所有站点信息
 
         all_devices = []
@@ -68,7 +67,7 @@ class HistoricalDataStorage:
                             if real_time_data[key] == '':  # redis存储的为空值
                                 real_time_data[key] = 'null'
                         table_name = "table_" + str(item['device_name'])  # 根据站名计算表名
-                        # self._log.debug("[HistoricalDataStorage] - " + repr(table_name) + '<-' + repr(real_time_data))
+                        logging.debug(repr(table_name) + '<-' + repr(real_time_data))
                         self._storage.hardDiskStorage.insert_column_many(table_name, save_time, real_time_data)
 
 

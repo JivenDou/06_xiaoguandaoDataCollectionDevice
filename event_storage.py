@@ -8,7 +8,7 @@ from configuration import Configuration
 
 class EventStorage:
     def __init__(self):
-        self.config = Configuration().get_system_config()
+        self.config = Configuration().get_config()
         self.memoryStorage = MemoryStorage(self.config['memoryDatabase'])
         self.hardDiskStorage = HardDiskStorage(self.config['hardDiskdataBase'])
 

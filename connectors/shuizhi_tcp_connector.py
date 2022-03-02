@@ -9,7 +9,7 @@ import struct
 import socket
 from connector import Connector
 from event_storage import EventStorage
-from log import Log
+import logging
 from binascii import *
 from crcmod import *
 
@@ -21,7 +21,6 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
         super().__init__()
         self._param_id = {}
         self._len_param = None
-        self.__log = Log()
         self.__sock = None
         self.__connected = False
         self.__stopped = False
@@ -35,8 +34,6 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
         self.__last_seve_time = 0
         self.__data_point_config = self.__storager.get_station_info(name)
         self._storage = EventStorage()
-        # for i in self.__data_point_config:
-        #     print(i)
 
     def open(self):
         self.__stopped = False
@@ -51,11 +48,10 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
         self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)  # 在客户端开启心跳维护
         try:
             self.__sock.connect((self.__ip, self.__port))
-            self.__log.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
-            print(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+            logging.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
             self.__connected = True
         except socket.error as e:
-            self.__log.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
+            logging.error(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
             self.__connected = False
             self.__reconnect()
 
@@ -67,13 +63,10 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)  # 在客户端开启心跳维护
                 self.__sock.connect((self.__ip, self.__port))
                 self.__connected = True
-                self.__log.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+                logging.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
                 break
             except Exception as e:
-                print("e=", e)
-                print("Continue reconnect in 5s..")
-                self.__log.info(
-                    f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
+                logging.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
                 self.__connected = False
                 time.sleep(5)
 
@@ -134,9 +127,6 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 instruct_list.append(bytes.fromhex(crc_check))
         self._len_param = len(instruct_list)
 
-        for i in instruct_list:
-            print(i)
-
         # 创建接收线程
         threading.Thread(target=self.SocketReceive, args=(self.__sock,)).start()
         # 循环发送指令
@@ -145,7 +135,6 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
             if not self.__connected:
                 continue
             try:
-                # print("发送", instruct_list[sendFlag], "....")
                 self.__sock.send(instruct_list[sendFlag])
             except Exception as e:
                 self.__connected = False
@@ -164,38 +153,31 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                     t = t - index['offset']
                 data = {'c' + str(index['serial_number']): t}
                 self.__storager.real_time_data_storage(data)
-        # print(data)
 
     def SocketReceive(self, clientSocket):
         global sendFlag
         ''' Socket 接收线程。'''
         while 1:
             time.sleep(0.2)
-            # print(sendFlag, time.time())
             try:
                 recvData = clientSocket.recv(1024)
-                # print("recvData=", recvData)
             except Exception as e:
-                print("e=", e)
+                logging.debug(f"Socket receive error:{e}")
                 break
             length = len(recvData)
             if length == 15:
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
                 t = int_to_hex(res[3], res[4], res[5], res[6])
-                print(time.strftime('%Y-%m-%d %H:%M:%S'), self._param_id[res[12]], "   t=", t)
+                logging.debug(time.strftime('%Y-%m-%d %H:%M:%S'), self._param_id[res[12]], "   t=", t)
                 self.save_format_data(t, self._param_id[res[12]])
                 if sendFlag == self._len_param - 1:
-                    print("-------------------")
+                    logging.debug("-------------------")
                     sendFlag = 0
                 else:
                     sendFlag = sendFlag + 1
         clientSocket.close()
-        self.__log.info("Client closed.")
-
-        # print(time.strftime('%Y-%m-%d %H:%M:%S'), len(recvData))
-        # socket_msg = recvData.decode()  # 将接收到的字节数据转为 string
-        # print("Socket receive: " + socket_msg)
+        logging.info("Client closed.")
 
 
 def int_to_hex(a1, a2, b1, b2):

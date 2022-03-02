@@ -1,14 +1,14 @@
 import datetime
 import json
+import logging
 
 import openpyxl
 import pymysql
 import traceback
 import time
-from log import Log
 
 
-class HardDiskStorage():
+class HardDiskStorage:
     def __init__(self, config, port=3306, charset='utf8'):
         self.host = config['ip']
         self.user = config['username']
@@ -17,14 +17,15 @@ class HardDiskStorage():
         self.port = port
         self.charset = charset
         self.conn = None
-        self._conn()
-        self.log = Log()
+        if not self._conn(): self._reConn()
 
     def _conn(self):
         try:
             self.conn = pymysql.connect(host=self.host, user=self.user, password=self.passwd, database=self.db, port=self.port, autocommit=True)
+            logging.debug(f'success to connect to {self.host}:{self.port}:{self.db} by [{self.user}:{self.passwd}]')
             return True
         except Exception as e:
+            logging.error(f'failed to connect to {self.host}:{self.port}:{self.db} by [{self.user}:{self.passwd}]:{e}')
             return False
 
     def _reConn(self, num=28800, stime=3):  # 重试连接总次数为1天,这里根据实际情况自己设置,如果服务器宕机1天都没发现就......
@@ -34,8 +35,8 @@ class HardDiskStorage():
             try:
                 self.conn.ping()  # cping 校验连接是否异常
                 _status = False
-            except:
-                if self._conn() == True:  # 重新连接,成功退出
+            except Exception as e:
+                if self._conn():  # 重新连接,成功退出
                     _status = False
                     break
                 _number += 1
