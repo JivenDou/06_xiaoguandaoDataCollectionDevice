@@ -2,7 +2,9 @@ import asyncio
 import datetime
 import sys
 import time
-import logging
+import logging.config
+
+import wmi
 from sanic import Sanic
 from sanic_cors import CORS, cross_origin
 from sanic import response
@@ -15,24 +17,12 @@ from alarm import Alarm
 from historical_data_storage import HistoricalDataStorage
 from hard_disk_storage import HardDiskStorage
 from api_context import ApiContext
+from AES_crypt import decrypt
+from sanic.log import logger
+from my_log_config import MY_LOGGING_CONFIG
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='[%(asctime)s] - thread:%(thread)d - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s ',
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    # filename='gateway.log',  # 调式程序时注释掉本行
-                    )
-
-app = Sanic(__name__)
+app = Sanic(__name__, log_config=MY_LOGGING_CONFIG)
 CORS(app)
-
-
-# config = {"ip": "127.0.0.1",
-#           "username": "root",
-#           "password": "root",
-#           "dataBaseName": "shucai"}
-# handler = HardDiskStorage(config=config, port=3306, charset='utf8')
-# res = handler.get_connectors()
-# print(res)
 
 
 @app.route('/readReal', methods=['POST'])
@@ -132,9 +122,7 @@ async def read_statistics_data(request):
 #     config = config_handle.get_system_config()
 #     cpu_code_from_config_file = config['code']
 #     # 获取当前设备CPU序列号
-#     c = wmi.WMI()
-#     for cpu in c.Win32_Processor():
-#         cpu_code = cpu.ProcessorId.strip()
+#
 #
 #     # 判断是否匹配
 #     if cpu_code == cpu_code_from_config_file:
@@ -143,12 +131,16 @@ async def read_statistics_data(request):
 #         return False
 
 
-# @app.post('/verify')
-# def verify_app(request):
-#     if is_active:
-#         return response.json({'status': 'yes'})
-#     else:
-#         return response.json({'status': 'no'})
+@app.post('/verify')
+def verify_app(request):
+    config = Configuration().get_config()
+    for cpu in wmi.WMI().Win32_Processor():
+        cpu_code = cpu.ProcessorId.strip()
+    de_cpu_code = decrypt(config['activation_code'])
+    if cpu_code == de_cpu_code:
+        return response.json({'status': 'yes'})
+    else:
+        return response.json({'status': 'no'})
 
 
 # def overrun_alarm(alarms):
@@ -180,7 +172,6 @@ async def notify_server_started_after_five_seconds():
 
 
 if __name__ == "__main__":
-    system_config = Configuration().get_config()
     gateway_storage = EventStorage()
     connector_config = gateway_storage.get_connector_config()
     Utility.start_connectors(connector_config)

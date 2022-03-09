@@ -2,7 +2,7 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
-import logging
+from sanic.log import logger
 from converter import Converter
 
 
@@ -12,14 +12,14 @@ from converter import Converter
 class AdcpConverter(Converter):
     def convert(self, config, data):
         if data:
-            # logging.debug(config)
-            # logging.debug(data)
+            logger.debug(config)
+            logger.debug(data)
             dict = {}
             try:
                 raw_data = data.decode().split("\r\n")
-                # logging.debug(len(raw_data))
+                # logger.debug(len(raw_data))
                 if len(raw_data) == 32:
-                    # logging.debug(raw_data)
+                    # logger.debug(raw_data)
                     raw_data = raw_data[1:-1]
                     flow_rate_data = []
                     flow_direction = []
@@ -30,9 +30,9 @@ class AdcpConverter(Converter):
                         flow_rate_data.append(t1[1] / 1000)  # 流速值除以1000
                         flow_direction.append(t1[2] / 10)  # 流向值除以10
                     format_data = flow_rate_data + flow_direction
-                    # logging.debug(format_data)
+                    logger.debug(format_data)
                     j = 0
-                    # logging.debug(len(config), len(format_data))
+                    logger.debug(len(config), len(format_data))
                     for index in config:
                         name = 'c' + str(index['serial_number'])
                         if index['divisor'] is not None:
@@ -47,5 +47,5 @@ class AdcpConverter(Converter):
                 else:
                     return "error"
             except Exception as e:
-                logging.debug(e)
+                logger.debug(e)
                 return "error"

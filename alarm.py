@@ -2,7 +2,7 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
-import logging
+from sanic.log import logger
 import threading
 import time
 from event_storage import EventStorage
@@ -52,7 +52,7 @@ class Alarm(threading.Thread):
 
     # 越限报警
     def overrun_alarm(self):
-        logging.info('Over run alarm module is running!')
+        logger.info('Over run alarm module is running!')
         try:
             point_info = self.get_point_table()
             while 1:
@@ -77,14 +77,14 @@ class Alarm(threading.Thread):
                                 continue
                 time.sleep(1)
         except Exception as e:
-            logging.error(e)
+            logger.error(e)
 
     def overrun_alarm_storage(self, table_name, save_time, item):
         pass
 
     # 变位报警
     def displacement_alarm(self):
-        logging.info('[displacement_alarm] - Displacement alarm module is running!')
+        logger.info('[displacement_alarm] - Displacement alarm module is running!')
         point_info = self._storage.hardDiskStorage.get_point_info(point_tuple=None)
 
         keys_list = []

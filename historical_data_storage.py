@@ -2,7 +2,7 @@ import json
 import threading
 from event_storage import EventStorage
 import time
-import logging
+from sanic.log import logger
 
 
 class HistoricalDataStorage(threading.Thread):
@@ -12,7 +12,7 @@ class HistoricalDataStorage(threading.Thread):
 
     # 历史存储主函数
     def run(self):
-        logging.info('Historical data storage module is running!')
+        logger.info('Historical data storage module is running!')
         station_info = self._storage.hardDiskStorage.get_connectors()  # 获取所有站点信息
 
         all_devices = []
@@ -20,15 +20,13 @@ class HistoricalDataStorage(threading.Thread):
             station_name = item['station_name']  # 站点名称
             connector_config = json.loads(item['connector_config'])  # 加载json格式connector_config参数
             save_frequency = connector_config['save_frequency']  # 获取存储频率
-            devices_each_station = self._storage.hardDiskStorage.get_device_name_by_station_name(
-                station_name)  # 根据站点名称获取设备列表
+            devices_each_station = self._storage.hardDiskStorage.get_device_name_by_station_name(station_name)  # 根据站点名称获取设备列表
 
             for i in devices_each_station:
                 temp_dict = {}
                 # 获取每个设备所有点的serial_number,转换为键列表
                 device_name = i['device_name']
-                data_point_each_decive = self._storage.hardDiskStorage.get_data_point_by_device_name(
-                    device_name)  # 根据设备名称获取设备点表
+                data_point_each_decive = self._storage.hardDiskStorage.get_data_point_by_device_name(device_name)  # 根据设备名称获取设备点表
 
                 serial_number_list = []
                 for item in data_point_each_decive:
@@ -67,7 +65,7 @@ class HistoricalDataStorage(threading.Thread):
                             if real_time_data[key] == '':  # redis存储的为空值
                                 real_time_data[key] = 'null'
                         table_name = "table_" + str(item['device_name'])  # 根据站名计算表名
-                        logging.debug(repr(table_name) + '<-' + repr(real_time_data))
+                        logger.debug(f"{table_name} <- {real_time_data}")
                         self._storage.hardDiskStorage.insert_column_many(table_name, save_time, real_time_data)
 
 

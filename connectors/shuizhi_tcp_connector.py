@@ -9,7 +9,7 @@ import struct
 import socket
 from connector import Connector
 from event_storage import EventStorage
-import logging
+from sanic.log import logger
 from binascii import *
 from crcmod import *
 
@@ -48,10 +48,10 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
         self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)  # 在客户端开启心跳维护
         try:
             self.__sock.connect((self.__ip, self.__port))
-            logging.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+            logger.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
             self.__connected = True
         except socket.error as e:
-            logging.error(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
+            logger.error(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
             self.__connected = False
             self.__reconnect()
 
@@ -63,10 +63,10 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
                 self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)  # 在客户端开启心跳维护
                 self.__sock.connect((self.__ip, self.__port))
                 self.__connected = True
-                logging.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+                logger.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
                 break
             except Exception as e:
-                logging.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
+                logger.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
                 self.__connected = False
                 time.sleep(5)
 
@@ -162,22 +162,22 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
             try:
                 recvData = clientSocket.recv(1024)
             except Exception as e:
-                logging.debug(f"Socket receive error:{e}")
+                logger.debug(f"Socket receive error:{e}")
                 break
             length = len(recvData)
             if length == 15:
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
                 t = int_to_hex(res[3], res[4], res[5], res[6])
-                logging.debug(time.strftime('%Y-%m-%d %H:%M:%S'), self._param_id[res[12]], "   t=", t)
+                logger.debug(time.strftime('%Y-%m-%d %H:%M:%S'), self._param_id[res[12]], "   t=", t)
                 self.save_format_data(t, self._param_id[res[12]])
                 if sendFlag == self._len_param - 1:
-                    logging.debug("-------------------")
+                    logger.debug("-------------------")
                     sendFlag = 0
                 else:
                     sendFlag = sendFlag + 1
         clientSocket.close()
-        logging.info("Client closed.")
+        logger.info("Client closed.")
 
 
 def int_to_hex(a1, a2, b1, b2):

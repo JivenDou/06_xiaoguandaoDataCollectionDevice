@@ -1,20 +1,7 @@
 import json
-import logging
-import os
+from sanic.log import error_logger
 import sys
-import base64
-
-import pyDes
-
-
-def DesEncrypt(string):
-    Des_Key = "u357asdu"  # Key
-    Des_IV = "u357asdu"  # 自定IV向量
-    string = base64.b64decode(string)
-    k = pyDes.des(Des_Key, pyDes.CBC, Des_IV, pad=None,
-                  padmode=pyDes.PAD_PKCS5)
-    decryptStr = k.decrypt(string)
-    return decryptStr
+from AES_crypt import decrypt
 
 
 class Configuration:
@@ -26,10 +13,11 @@ class Configuration:
         try:
             with open(self.path) as json_file:
                 config = json.load(json_file)
+                config['hardDiskdataBase']['password'] = decrypt(config['hardDiskdataBase']['password'])
             return config
         except FileNotFoundError as e:
-            logging.error("find config file failed:", e)
-            return None
+            error_logger.error(f"config file does not exist:{e}")
+            sys.exit()
         # 解密密码和序列号
         # config['hardDiskdataBase']['password'] = DesEncrypt(
         #     config['hardDiskdataBase']['password']).decode('utf-8')

@@ -1,4 +1,4 @@
-import logging
+from sanic.log import logger
 import re
 from converter import Converter
 
@@ -32,5 +32,5 @@ class WXT536Converter(Converter):
                 else:
                     return "error"
             except Exception as e:
-                logging.debug(e)
+                logger.error(e)
                 return "error"

@@ -1,13 +1,13 @@
 {
   "hardDiskdataBase": {
     "ip": "127.0.0.1",
-    "username": "root",
-    "password": "pass",
+    "username": "zz",
+    "password": "5BFkezzPY1C0/2/y2pMrag==\n",
     "dataBaseName": "shucai"
   },
   "memoryDatabase": {
     "ip": "127.0.0.1",
     "port": 6379
   },
-  "code": "18srfpUIeKFw+z/itQkUHbbi5nEh+4iF"
+  "activation_code": "gB3VLrUgeo8+Xp/+ouVTlQ==\n"
 }
