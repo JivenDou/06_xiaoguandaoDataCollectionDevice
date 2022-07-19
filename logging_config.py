@@ -1,6 +1,13 @@
+"""
+@File  : log_config.py
+@Author: lee
+@Date  : 2022/7/13/0013 11:08:55
+@Desc  :
+"""
+import logging
 import sys
 
-MY_LOGGING_CONFIG = dict(
+LOGGING_CONFIG = dict(
     version=1,
     disable_existing_loggers=False,
     loggers={
@@ -15,7 +22,7 @@ MY_LOGGING_CONFIG = dict(
             "qualname": "sanic.error",
         },
         "sanic.access": {
-            "level": "INFO",
+            "level": "WARNING",
             "handlers": ["access_console"],
             "propagate": True,
             "qualname": "sanic.access",
@@ -37,30 +44,21 @@ MY_LOGGING_CONFIG = dict(
             "formatter": "access",
             "stream": sys.stdout,
         },
-        "file": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "formatter": "myFormatter",
-            "filename": "gateway.log",
-            "maxBytes": 1024 * 1024,
-            "backupCount": 5,
-        },
     },
     formatters={
         "generic": {
-            "format": "[%(asctime)s] -[%(threadName)s:%(thread)d] - %(filename)s[line:%(lineno)d][%(processName)s:%(process)d] [%(levelname)s] %(message)s",
+            "format": "%(asctime)s [%(process)d] [%(filename)s:%(lineno)d] [%(levelname)s] %(message)s",
             "datefmt": "[%Y-%m-%d %H:%M:%S %z]",
             "class": "logging.Formatter",
         },
         "access": {
-            "format": "%(asctime)s - (%(name)s)[%(levelname)s][%(host)s]: "
+            "format": "%(asctime)s - (%(name)s) [%(levelname)s][%(host)s]: "
                       + "%(request)s %(message)s %(status)d %(byte)d",
-            "datefmt": "[%Y-%m-%d %H:%M:%S %z]",
-            "class": "logging.Formatter",
-        },
-        "myFormatter": {
-            "format": "[%(asctime)s] -[%(threadName)s:%(thread)d] - %(filename)s[line:%(lineno)d] - %(levelname)s - %(message)s",
             "datefmt": "[%Y-%m-%d %H:%M:%S %z]",
             "class": "logging.Formatter",
         },
     },
 )
+logger = logging.getLogger("sanic.root")
+error_logger = logging.getLogger("sanic.error")
+access_logger = logging.getLogger("sanic.access")

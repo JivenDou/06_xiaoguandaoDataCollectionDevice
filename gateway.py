@@ -2,7 +2,6 @@ import asyncio
 import datetime
 import sys
 import time
-import logging.config
 
 import wmi
 from sanic import Sanic
@@ -17,11 +16,10 @@ from alarm import Alarm
 from historical_data_storage import HistoricalDataStorage
 from hard_disk_storage import HardDiskStorage
 from api_context import ApiContext
-from AES_crypt import decrypt
-from sanic.log import logger
-from my_log_config import MY_LOGGING_CONFIG
+from AES_crypt import decrypt, encrypt
+from logging_config import LOGGING_CONFIG
 
-app = Sanic(__name__, log_config=MY_LOGGING_CONFIG)
+app = Sanic(__name__, log_config=LOGGING_CONFIG)
 CORS(app)
 
 
@@ -141,6 +139,20 @@ def verify_app(request):
         return response.json({'status': 'yes'})
     else:
         return response.json({'status': 'no'})
+
+
+@app.post('/activate')
+def acvivate(request):
+    activate_code = request.json['code']
+    for cpu in wmi.WMI().Win32_Processor():
+        cpu_code = cpu.ProcessorId.strip()
+    de_activate_code = decrypt(activate_code)
+    if de_activate_code == cpu_code:
+        config = Configuration()
+        res = config.set_config(**{"activation_code": activate_code})
+        if res:
+            return response.json({'status': 'yes'})
+    return response.json({'status': 'no'})
 
 
 # def overrun_alarm(alarms):

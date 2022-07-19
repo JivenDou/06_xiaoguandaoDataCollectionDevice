@@ -131,11 +131,16 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
         threading.Thread(target=self.SocketReceive, args=(self.__sock,)).start()
         # 循环发送指令
         while 1:
-            time.sleep(0.2)
+            time.sleep(0.5)
             if not self.__connected:
                 continue
             try:
-                self.__sock.send(instruct_list[sendFlag])
+                for i in instruct_list:
+                    # self.__sock.send(instruct_list[sendFlag])\
+                    time.sleep(.5)
+                    self.__sock.send(i)
+                    time.sleep(.5)
+                    self.__sock.send(i)
             except Exception as e:
                 self.__connected = False
                 self.__reconnect()
@@ -162,20 +167,22 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
             try:
                 recvData = clientSocket.recv(1024)
             except Exception as e:
-                logger.debug(f"Socket receive error:{e}")
+                logger.info(f"Socket receive error:{e}")
                 break
             length = len(recvData)
             if length == 15:
                 fmt = str(length) + 'B'
                 res = struct.unpack(fmt, recvData)
                 t = int_to_hex(res[3], res[4], res[5], res[6])
-                logger.debug(time.strftime('%Y-%m-%d %H:%M:%S'), self._param_id[res[12]], "   t=", t)
+                logger.info(f" {self._param_id[res[12]]},   t= {t}")
                 self.save_format_data(t, self._param_id[res[12]])
-                if sendFlag == self._len_param - 1:
-                    logger.debug("-------------------")
-                    sendFlag = 0
-                else:
-                    sendFlag = sendFlag + 1
+            else:
+                logger.info(f"读取错误:{recvData}，跳过。")
+            # if sendFlag == self._len_param - 1:
+            #     logger.info("-------------------")
+            #     sendFlag = 0
+            # else:
+            #     sendFlag = sendFlag + 1
         clientSocket.close()
         logger.info("Client closed.")
 

@@ -33,7 +33,7 @@ class AESCrypt:
         elif self.model == AES.MODE_ECB:
             aes = AES.new(self.key, self.model)
         encrypt_text = aes.encrypt(text)
-        return base64.encodebytes(encrypt_text).decode('utf8')
+        return base64.encodebytes(encrypt_text).decode('utf8').rstrip("\n")
 
     def aesdecrypt(self, text):
         if self.model == AES.MODE_CBC:
@@ -66,15 +66,19 @@ def decrypt(text):
     return aes_cryptor.aesdecrypt(text)
 
 
+def encrypt(text):
+    aes_cryptor = AESCrypt(passwd, AES.MODE_CBC, iv)
+    return aes_cryptor.aesencrypt(text)
+
+
 if __name__ == '__main__':
-    activation_verify('B3VLrUgeo8+Xp/+ouVTlQ==\n')
-    # passwd = "123456781234567"
-    # iv = '1234567812345678'
-    #
-    # aescryptor = AESCrypt(passwd, AES.MODE_CBC, iv)  # CBC模式
-    # # aescryptor = Aescrypt(passwd,AES.MODE_ECB,"") # ECB模式
-    # text = "123456"
-    # en_text = aescryptor.aesencrypt(text)
-    # print("密文:", en_text)
-    # text = aescryptor.aesdecrypt(en_text)
-    # print("明文:", text)
+    passwd = "123456781234567"
+    iv = '1234567812345678'
+
+    aescryptor = AESCrypt(passwd, AES.MODE_CBC, iv)  # CBC模式
+    # aescryptor = Aescrypt(passwd,AES.MODE_ECB,"") # ECB模式
+    text = "root"
+    en_text = aescryptor.aesencrypt(text)
+    print("密文:", en_text)
+    text = aescryptor.aesdecrypt(en_text)
+    print("明文:", text)

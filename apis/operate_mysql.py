@@ -3,6 +3,7 @@ import traceback
 import time
 import datetime
 from configuration import Configuration
+from AES_crypt import decrypt
 
 
 class OperateMysql():
@@ -12,7 +13,7 @@ class OperateMysql():
     def __init__(self, config=config, port=3306, charset='utf8'):
         self.host = config['ip']
         self.user = config['username']
-        self.passwd = config['password']
+        self.passwd = decrypt(config['password'])
         self.db = config['dataBaseName']
         self.port = port
         self.charset = charset

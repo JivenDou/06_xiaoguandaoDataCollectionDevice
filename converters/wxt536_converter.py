@@ -14,10 +14,12 @@ class WXT536Converter(Converter):
     '''
 
     def convert(self, config, data):
+        logger.info(f"data: {data}")
         if data:
             dict = {}
             try:
                 list = data.decode().split(",")
+                logger.info(f"list: {list}, len: {len(list)}")
                 if len(list) == 9:
                     for index in config:
                         name = 'c' + str(index['serial_number'])
@@ -26,6 +28,7 @@ class WXT536Converter(Converter):
                             dict[name] = re.findall(r"\d+\.?\d*", list[i])[0]
                         else:
                             dict[name] = "null"
+                    logger.info(f"解析后数据(气象传感器)：{dict}")
                     return dict
                 elif len(list) > 0:
                     return "pass"

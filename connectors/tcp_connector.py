@@ -49,7 +49,7 @@ class TcpConnector(Connector, threading.Thread):
         self.__sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许重用本地地址和端口
         self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)  # 在客户端开启心跳维护
-        self.__sock.settimeout(10)  # 设置超时时间3mins
+        self.__sock.settimeout(180)  # 设置超时时间3mins
         try:
             self.__sock.connect((self.__ip, self.__port))
             logger.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
@@ -67,7 +67,7 @@ class TcpConnector(Connector, threading.Thread):
                 self.__sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)  # 在客户端开启心跳维护
-                self.__sock.settimeout(10)  # 设置超时时间3mins
+                self.__sock.settimeout(180)  # 设置超时时间3mins
                 self.__sock.connect((self.__ip, self.__port))
                 self.__connected = True
                 logger.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')

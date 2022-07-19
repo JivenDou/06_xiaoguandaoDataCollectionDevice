@@ -59,19 +59,18 @@ class NEMA0183Converter(Converter):
             return False
 
     def check_type(self, config, data):
+        logger.info(f"原始数据(波高传感器)：len:{len(data)}, data: {data}")
         dict = {}
         data = data.split('*')
         # Splits up the NMEA data by comma
         data = data[0].split(',')
-        logger.debug('len:', len(data), 'data:', data)
         if data[0] == '$PMIRWM':
             for index in config:
                 name = 'c' + str(index['serial_number'])
                 i = int(index['address'])
                 dict[name] = data[i]
-            logger.debug(dict)
+            logger.info(f"解析后数据(波高传感器)：len:{len(dict)}, dict: {dict}")
             return dict
-
         # return data[0]
 
     def nmea2utc(self, data):
