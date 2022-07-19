@@ -13,7 +13,7 @@ LOGGING_CONFIG = dict(
     loggers={
         "sanic.root": {
             "level": "INFO",
-            "handlers": ["console"]
+            "handlers": ["console", "custome_console"]
         },
         "sanic.error": {
             "level": "INFO",
@@ -43,6 +43,15 @@ LOGGING_CONFIG = dict(
             "class": "logging.StreamHandler",
             "formatter": "access",
             "stream": sys.stdout,
+        },
+        "custome_console": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'app.log',
+            'level': 'INFO',
+            'maxBytes': 100*1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 10
         },
     },
     formatters={
