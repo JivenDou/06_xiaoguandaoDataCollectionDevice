@@ -106,6 +106,7 @@ class TcpConnector(Connector, threading.Thread):
                 if data == b'':
                     self.__reconnect()
                 data = self.__converter.convert(self.__data_point_config, data)
+                logger.info(f"format_data = {data}")
                 if data:
                     if data != "error" and data != 'pass':
                         self.__storager.real_time_data_storage(data)

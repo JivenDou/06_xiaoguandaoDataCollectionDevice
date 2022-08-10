@@ -12,7 +12,7 @@ LOGGING_CONFIG = dict(
     disable_existing_loggers=False,
     loggers={
         "sanic.root": {
-            "level": "INFO",
+            "level": "DEBUG",
             "handlers": ["console", "custome_console"]
         },
         "sanic.error": {

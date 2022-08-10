@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['gateway.py'],
-             pathex=['E:\\WorkSpace\\shuicai\\DataCollectionDevice\\venv\\Lib\\site-packages'],
+             pathex=['E:\\WorkSpace\\shuicai\\60Mship\\venv\\Lib\\site-packages'],
              binaries=[],
              datas=[],
              hiddenimports=[],

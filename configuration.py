@@ -12,6 +12,7 @@ class Configuration:
                 self.config = json.load(json_file)
         except FileNotFoundError as e:
             error_logger.error(f"config file does not exist:{e}")
+            input("按任意键退出！")
             sys.exit()
 
     def get_config(self):
