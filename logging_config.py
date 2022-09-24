@@ -12,8 +12,8 @@ LOGGING_CONFIG = dict(
     disable_existing_loggers=False,
     loggers={
         "sanic.root": {
-            "level": "DEBUG",
-            "handlers": ["console", "custome_console"]
+            "level": "INFO",  # 默认DEBUG
+            "handlers": ["console"]
         },
         "sanic.error": {
             "level": "INFO",
@@ -22,10 +22,17 @@ LOGGING_CONFIG = dict(
             "qualname": "sanic.error",
         },
         "sanic.access": {
-            "level": "WARNING",
+            "level": "INFO",  # 默认DEBUG
             "handlers": ["access_console"],
             "propagate": True,
             "qualname": "sanic.access",
+        },
+        # 新曾自定义日志，用于数据采集程序
+        "sanic.my": {
+            "level": "INFO",
+            "handlers": ["my_console", "file_console"],
+            "propagate": True,
+            "qualname": "my.debug",
         },
     },
     handlers={
@@ -44,20 +51,33 @@ LOGGING_CONFIG = dict(
             "formatter": "access",
             "stream": sys.stdout,
         },
-        "custome_console": {
+        # 数据采集程序控制台输出handler
+        "my_console": {
+            "class": "logging.StreamHandler",
+            "formatter": "my",
+            "stream": sys.stdout,
+        },
+        # 数据采集程序文件输出handler
+        "file_console": {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': 'app.log',
-            'level': 'INFO',
-            'maxBytes': 100*1024,
+            'maxBytes': 200 * 1024,
             'delay': True,
-            "formatter": "generic",
-            "backupCount": 10
+            "formatter": "my",
+            "backupCount": 10,
+            "encoding": "utf-8"
         },
     },
     formatters={
         "generic": {
-            "format": "%(asctime)s [%(process)d] [%(filename)s:%(lineno)d] [%(levelname)s] %(message)s",
+            "format": "%(asctime)s [%(process)d] [%(levelname)s] %(message)s",
             "datefmt": "[%Y-%m-%d %H:%M:%S %z]",
+            "class": "logging.Formatter",
+        },
+        # 自定义文件格式化器
+        "my": {
+            "format": "%(asctime)s [%(filename)s:%(lineno)d] [%(levelname)s] %(message)s",
+            "datefmt": "[%Y-%m-%d %H:%M:%S]",
             "class": "logging.Formatter",
         },
         "access": {
@@ -68,6 +88,4 @@ LOGGING_CONFIG = dict(
         },
     },
 )
-logger = logging.getLogger("sanic.root")
-error_logger = logging.getLogger("sanic.error")
-access_logger = logging.getLogger("sanic.access")
+logger = logging.getLogger("sanic.my")

@@ -9,7 +9,7 @@ import struct
 import socket
 from connector import Connector
 from event_storage import EventStorage
-from sanic.log import logger
+from logging_config import logger
 from binascii import *
 from crcmod import *
 
@@ -137,9 +137,9 @@ class ShuizhiTcpConnector(Connector, threading.Thread):
             try:
                 for i in instruct_list:
                     # self.__sock.send(instruct_list[sendFlag])\
-                    time.sleep(.5)
+                    time.sleep(1)
                     self.__sock.send(i)
-                    time.sleep(.5)
+                    time.sleep(1)
                     self.__sock.send(i)
             except Exception as e:
                 self.__connected = False

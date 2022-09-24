@@ -1,5 +1,5 @@
 import json
-from sanic.log import error_logger
+from logging_config import logger
 import sys
 from AES_crypt import decrypt
 
@@ -11,7 +11,7 @@ class Configuration:
             with open(self.path) as json_file:
                 self.config = json.load(json_file)
         except FileNotFoundError as e:
-            error_logger.error(f"config file does not exist:{e}")
+            logger.error(f"无法找到配置文件:{e}")
             input("按任意键退出！")
             sys.exit()
 

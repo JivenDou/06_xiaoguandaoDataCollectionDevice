@@ -1,5 +1,5 @@
 import datetime
-import logging
+from logging_config import logger
 import openpyxl
 import pymysql
 import traceback
@@ -16,7 +16,6 @@ class HardDiskStorage:
         self.port = port
         self.charset = charset
         self.conn = None
-        self.logger = logging.getLogger()
         if not self._conn():
             self._reConn()
 
@@ -25,7 +24,7 @@ class HardDiskStorage:
             self.conn = pymysql.connect(host=self.host, user=self.user, password=self.passwd, database=self.db, port=self.port, autocommit=True)
             return True
         except Exception as e:
-            self.logger.error(f'failed to connect to {self.host}:{self.port}:{self.db} by [{self.user}:{self.passwd}]:{e}')
+            logger.error(f'failed to connect to {self.host}:{self.port}:{self.db} by [{self.user}:{self.passwd}]:{e}')
             return False
 
     def _reConn(self, num=28800, stime=3):  # 重试连接总次数为1天,这里根据实际情况自己设置,如果服务器宕机1天都没发现就......

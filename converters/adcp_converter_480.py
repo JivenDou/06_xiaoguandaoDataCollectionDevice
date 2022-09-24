@@ -1,8 +1,8 @@
 """
 @Date  :2022/8/10/00219:10:57
-@Desc  : 增加温度解析
+@Desc  : 增加温度深度解析
 """
-from sanic.log import logger
+from logging_config import logger
 from converter import Converter
 
 
@@ -16,15 +16,19 @@ class AdcpConverter(Converter):
             # logger.debug(data)
             dict = {}
             try:
+                logger.debug(f"len(data)= {len(data)}")
+                logger.debug(f"(data)= {data}")
+                if len(data) < 500:
+                    return
                 raw_data = data.decode().split("\r\n")
-                # logger.debug(f"len(raw_data): {len(raw_data)}")
+                logger.debug(f"len(raw_data): {len(raw_data)}")
                 if len(raw_data) == 32:
-                    # logger.debug(f"raw_data= {raw_data}")
+                    logger.debug(f"raw_data= {raw_data}")
                     title = raw_data[0].split(" ")
-                    tempe = [float(title[-3])]
-                    # logger.debug(f"len(title)= {len(title)}")
-                    # logger.debug(f"title= {title}")
-                    # logger.debug(f"tempe={tempe}")
+                    addon = [float(title[-3]), float(title[-4])]
+                    logger.debug(f"len(title)= {len(title)}")
+                    logger.debug(f"title= {title}")
+                    logger.debug(f"addon={addon}")
                     raw_data = raw_data[1:-1]
                     flow_rate_data = []
                     flow_direction = []
@@ -34,7 +38,7 @@ class AdcpConverter(Converter):
                         t1 = [int(x) for x in t]  # 字符串列表转int列表：[1, 211, 3075]
                         flow_rate_data.append(t1[1] / 1000)  # 流速值除以1000
                         flow_direction.append(t1[2] / 10)  # 流向值除以10
-                    format_data = flow_rate_data + flow_direction + tempe
+                    format_data = flow_rate_data + flow_direction + addon
                     # logger.debug(f"len(format_data): {len(format_data)}")
                     # logger.debug(f"format_data: {format_data}")
                     j = 0
@@ -49,10 +53,8 @@ class AdcpConverter(Converter):
                         dict[name] = format_data[j]
                         j += 1
                     return dict
-                elif len(raw_data) > 0:
-                    return "pass"
                 else:
                     return "error"
             except Exception as e:
-                logger.debug(e)
-                return "error"
+                logger.error(e)
+                return

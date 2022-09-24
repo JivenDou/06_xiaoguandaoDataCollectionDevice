@@ -2,7 +2,7 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
-from sanic.log import logger
+from logging_config import logger
 import binascii
 
 from converter import Converter
@@ -11,11 +11,15 @@ from converter import Converter
 class NEMA0183Converter(Converter):
 
     def convert(self, config, data):
-        data = data.decode()
-        if self.checksum(data):
-            res = self.check_type(config, data)
-            return res
-        return "error"
+        data = data.decode().split("\r\n")
+        logger.info(f"(波高传感器)原始接收数据：len:{len(data)}, data: {data}")
+        for i in data:
+            if self.checksum(i):
+                res = self.check_type(config, i)
+                return res
+            else:
+                logger.info(f"checksum校验失败：{i}")
+                return "error"
 
     def make_checksum(self, data):
         '''
@@ -59,16 +63,16 @@ class NEMA0183Converter(Converter):
             return False
 
     def check_type(self, config, data):
-        logger.info(f"原始数据(波高传感器)：len:{len(data)}, data: {data}")
         dict = {}
         data = data.split('*')
         # Splits up the NMEA data by comma
         data = data[0].split(',')
+        logger.info(f"进一步格式化数据(波高传感器)：len:{len(data)}, data: {data}")
         if data[0] == '$PMIRWM':
             for index in config:
                 name = 'c' + str(index['serial_number'])
-                i = int(index['address'])
-                dict[name] = data[i]
+                address = int(index['address'])
+                dict[name] = format_value(index, data[address])
             logger.info(f"解析后数据(波高传感器)：len:{len(dict)}, dict: {dict}")
             return dict
         # return data[0]
@@ -82,8 +86,27 @@ class NEMA0183Converter(Converter):
         return date + 'T' + time + 'Z'
 
 
+def format_value(index, value):
+    if value:
+        value = float(value)
+        divisor = index['divisor']
+        offset = index['offset']
+        low_limit = index['low_limit']
+        up_limit = index['up_limit']
+        if divisor:
+            value /= divisor
+        if offset:
+            value -= offset
+        if low_limit <= value <= up_limit:
+            return value
+        else:
+            return ''
+    else:
+        return ''
+
+
 '''        
-data = "$PMIRR,20210325,033351.719,0.000,0.000,V,0.00*0F" 
+data = "$PMIRR,20210325,033351.719,0.000,0.000,V,0.00*0F"
 
 data2 = data.split('*')
 data2 = data2[0].split(',')

@@ -15,7 +15,7 @@ class MemoryStorage:
         try:
             pipe = self.conn.pipeline(transaction=True)
             for key_name in data_dict.keys():
-                pipe.set(key_name, data_dict[key_name], ex=600)  # redis过期时间10mines
+                pipe.set(key_name, data_dict[key_name], ex=1800)  # redis过期时间30mines
             pipe.execute()
         except Exception as e:
             print(e)

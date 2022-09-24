@@ -2,7 +2,7 @@ import json
 import threading
 from event_storage import EventStorage
 import time
-from sanic.log import logger
+from logging_config import logger
 
 
 class HistoricalDataStorage(threading.Thread):

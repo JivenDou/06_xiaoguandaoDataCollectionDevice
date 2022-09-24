@@ -2,7 +2,7 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
-from sanic.log import logger
+from logging_config import logger
 import threading
 import time
 from event_storage import EventStorage

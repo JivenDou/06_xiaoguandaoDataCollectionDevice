@@ -2,12 +2,15 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
+import json
 import time
 import threading
-import struct
 import socket
 import queue
-from sanic.log import logger
+
+from modbus_tk import utils
+
+from logging_config import logger
 from connector import Connector
 from event_storage import EventStorage
 
@@ -26,8 +29,8 @@ class TcpConnector(Connector, threading.Thread):
         self.__save_frequency = config['save_frequency']
         self.__command_queue = queue.Queue(50)
         self.setName(name)
-        self.__last_seve_time = 0
         self.__data_point_config = self.__storager.get_station_info(name)
+        self.__command = self.__storager.get_command_info(name)
 
     def open(self):
         self.__stopped = False
@@ -37,8 +40,15 @@ class TcpConnector(Connector, threading.Thread):
         self.__connect()
         self.__connected = True
         while True:
+            if isinstance(self.__command, list):
+                for i in self.__command:
+                    command_list = json.loads(i['command'])
+                    self.command_polling(command_list=command_list)
+                    time.sleep(1)
+            else:
+                self.command_polling()
             time.sleep(1)
-            self.command_polling()
+
             if self.__stopped:
                 break
 
@@ -98,21 +108,39 @@ class TcpConnector(Connector, threading.Thread):
             except Exception as e:
                 logger.info(f'Send command to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] error:{e}')
 
-    def command_polling(self):
-        if self.__connected:
+    def exec_command(self, command):
+        try:
+            com = bytes.fromhex(command['instruct'])
+            self.__sock.send(com)
+            recv_data = self.__sock.recv(self.__size)
+            return recv_data
+        except Exception as e:
+            logger.error(f"{e}")
+
+    def command_polling(self, command_list=None):
+        if command_list:
             try:
-                time.sleep(0.2)
-                data = self.__sock.recv(self.__size)
-                if data == b'':
-                    self.__reconnect()
-                data = self.__converter.convert(self.__data_point_config, data)
-                logger.info(f"format_data = {data}")
-                if data:
-                    if data != "error" and data != 'pass':
-                        self.__storager.real_time_data_storage(data)
+                for i in range(len(command_list)):
+                    command_item = command_list[i]
+                    recv_data = self.exec_command(command=command_item)
+                    format_data = self.__converter.convert(self.__data_point_config, recv_data)
+                    logger.info(f'{self.name}:{format_data}')
+                    if format_data and format_data != "error" and format_data != 'pass':
+                        self.__storager.real_time_data_storage(format_data)
             except Exception as e:
                 logger.error(f'Other error occur [{self.get_name()}]:[{self.__ip}]:[{self.__port}]:{e}')
                 time.sleep(5)
                 self.__reconnect()
         else:
-            self.__reconnect()
+            try:
+                recv_data = self.__sock.recv(self.__size)
+                format_data = self.__converter.convert(self.__data_point_config, recv_data)
+                # logger.info(f'{self.name}: {format_data}')
+                if format_data and format_data != "error" and format_data != 'pass':
+                    self.__storager.real_time_data_storage(format_data)
+            except socket.timeout as e:
+                logger.error(f"{e}")
+            except Exception as e:
+                logger.error(f"{e}")
+                time.sleep(5)
+                self.__reconnect()
