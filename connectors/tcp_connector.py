@@ -115,7 +115,7 @@ class TcpConnector(Connector, threading.Thread):
             recv_data = self.__sock.recv(self.__size)
             return recv_data
         except Exception as e:
-            logger.error(f"{e}")
+            logger.error(f"{self.name}: {e}")
 
     def command_polling(self, command_list=None):
         if command_list:
@@ -124,7 +124,6 @@ class TcpConnector(Connector, threading.Thread):
                     command_item = command_list[i]
                     recv_data = self.exec_command(command=command_item)
                     format_data = self.__converter.convert(self.__data_point_config, recv_data)
-                    logger.info(f'{self.name}:{format_data}')
                     if format_data and format_data != "error" and format_data != 'pass':
                         self.__storager.real_time_data_storage(format_data)
             except Exception as e:
@@ -135,12 +134,11 @@ class TcpConnector(Connector, threading.Thread):
             try:
                 recv_data = self.__sock.recv(self.__size)
                 format_data = self.__converter.convert(self.__data_point_config, recv_data)
-                # logger.info(f'{self.name}: {format_data}')
                 if format_data and format_data != "error" and format_data != 'pass':
                     self.__storager.real_time_data_storage(format_data)
             except socket.timeout as e:
-                logger.error(f"{e}")
+                logger.error(f"{self.name}: {e}")
             except Exception as e:
-                logger.error(f"{e}")
+                logger.error(f"{self.name}: {e}")
                 time.sleep(5)
                 self.__reconnect()

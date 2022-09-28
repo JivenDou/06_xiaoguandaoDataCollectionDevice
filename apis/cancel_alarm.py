@@ -2,6 +2,7 @@ from abstract_api import AbstractApi
 from apis.operate_mysql import OperateMysql
 import traceback
 
+
 class Cancel_alarm(AbstractApi):
 
     def operation(self, request):

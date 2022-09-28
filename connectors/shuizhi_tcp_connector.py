@@ -9,7 +9,7 @@ import struct
 import socket
 from connector import Connector
 from event_storage import EventStorage
-from logging_config import logger
+from logging_config import shuizhi_file_logger as logger
 from binascii import *
 from crcmod import *
 

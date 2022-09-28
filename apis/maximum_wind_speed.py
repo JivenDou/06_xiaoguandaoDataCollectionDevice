@@ -2,12 +2,14 @@ from abstract_api import AbstractApi
 from apis.operate_mysql import OperateMysql
 import datetime
 
+
 class Maximum_wind_speed(AbstractApi):
     """返回最大风速（给定时段内的每隔10分钟的平均风速中的最大值）"""
+
     def operation(self, request):
         operate_mysql = OperateMysql()
-        wind_direction = request['basic_datas'][0]      # 风向，如c1
-        wind_speed = request['basic_datas'][1]          # 风速，如c2
+        wind_direction = request['basic_datas'][0]  # 风向，如c1
+        wind_speed = request['basic_datas'][1]  # 风速，如c2
 
         res_wind_speed = operate_mysql.return_result(request, wind_speed.replace('c', ''))
         begin_time = res_wind_speed['begin_time']
@@ -15,9 +17,9 @@ class Maximum_wind_speed(AbstractApi):
 
         count = (int(request['end_time']) - int(request['begin_time'])) / 600
         max_speed = 0
-        status = 0      # 状态，用于判断所查询的时间段内是否有数据
+        status = 0  # 状态，用于判断所查询的时间段内是否有数据
         while count > 0:
-            time1 = begin_time+datetime.timedelta(minutes=10)
+            time1 = begin_time + datetime.timedelta(minutes=10)
 
             sql1 = "SELECT avg(%s) FROM %s WHERE times >= \'%s\' and times < \'%s\';" % (wind_speed, res_wind_speed['table_name'], begin_time, time1)
             res1 = operate_mysql.execute_sql(sql1)

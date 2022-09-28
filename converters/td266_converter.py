@@ -1,6 +1,6 @@
 import json
 import re
-from logging_config import logger
+from logging_config import td266_file_logger as logger
 
 from converter import Converter
 

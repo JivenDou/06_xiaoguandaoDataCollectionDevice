@@ -2,7 +2,7 @@
 @Date  :2021/5/21/00219:10:57
 @Desc  :
 """
-from logging_config import logger
+from logging_config import sm140_file_logger as logger
 import binascii
 
 from converter import Converter

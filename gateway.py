@@ -2,7 +2,7 @@ import asyncio
 import datetime
 import sys
 import time
-
+import os
 import wmi
 from sanic import Sanic
 from sanic_cors import CORS, cross_origin
@@ -18,8 +18,21 @@ from hard_disk_storage import HardDiskStorage
 from api_context import ApiContext
 from AES_crypt import decrypt, encrypt
 from logging_config import LOGGING_CONFIG
+import logging.config
 
-app = Sanic(__name__, log_config=LOGGING_CONFIG)
+# logging config
+logging.config.dictConfig(LOGGING_CONFIG)
+handlers = LOGGING_CONFIG['handlers']
+for handler in handlers:
+    item = handlers[handler]
+    if 'filename' in item:
+        filename = item['filename']
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+# --------------------------
+
+app = Sanic(__name__)
 CORS(app)
 
 

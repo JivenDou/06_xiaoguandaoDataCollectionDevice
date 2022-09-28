@@ -1,9 +1,7 @@
 # 多参数监测终端源码仓库
 
 ## 程序打包exe命令
-pyinstaller -F -p C:\Users\wenge\AppData\Local\Programs\Python\Python38\Lib\site-packages  gateway.spec
-pyinstaller -F -p D:\DevTools\Python38\Lib\site-packages  gateway.spec
-pyinstaller -F -p D:DevTools\Python38\Lib\site-packages gateway.py
+pyinstaller -F -p E:\WorkSpace\DataCollectionDevice\venv\Lib\site-packages gateway.py
 ## 更新日志
 1. 第一次提交。时间：2021/07/19 15:23:21
 2. 修改一些代码bug，删除不必要注释。时间：2021/08/19 13:35:50
@@ -18,3 +16,4 @@ pyinstaller -F -p D:DevTools\Python38\Lib\site-packages gateway.py
 11. 日志采用sanic日志系统输出。时间：2022/04/18 16:10:40
 12. 根据经海6号测试，优化水质传感器连接器、单点流速仪解析器，增加创建数据库标准sql文件。 时间：2022/07/19
 13. 根据480调试，adcp解析器增加点位：温度。时间：2022/08/10
+14. 增加新的国产单点流速仪的解析器。时间：2022/09/24

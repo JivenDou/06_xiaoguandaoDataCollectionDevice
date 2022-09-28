@@ -1,4 +1,4 @@
-from logging_config import logger
+from logging_config import wxt536_file_logger as logger
 import re
 from converter import Converter
 
