@@ -13,7 +13,7 @@ LOGGING_CONFIG = dict(
     loggers={
         # 新曾自定义日志，用于数据采集程序
         "console": {
-            "level": "DEBUG",
+            "level": "INFO",
             "handlers": ["console", "connector_file"],
             "propagate": True,
             "qualname": "console.debug",
