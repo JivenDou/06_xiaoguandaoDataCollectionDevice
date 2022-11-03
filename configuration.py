@@ -1,5 +1,6 @@
 import json
-from logging_config import logger
+import os
+from logging_config import general as logger
 import sys
 from AES_crypt import decrypt
 
@@ -11,7 +12,7 @@ class Configuration:
             with open(self.path) as json_file:
                 self.config = json.load(json_file)
         except FileNotFoundError as e:
-            logger.error(f"无法找到配置文件:{e}")
+            logger.error(f"当前路径：{os.getcwd()}无法找到配置文件:{e}")
             input("按任意键退出！")
             sys.exit()
 

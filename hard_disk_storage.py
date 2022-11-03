@@ -1,5 +1,5 @@
 import datetime
-from logging_config import logger
+from logging_config import general as logger
 import openpyxl
 import pymysql
 import traceback
@@ -287,6 +287,18 @@ class HardDiskStorage:
 
     def get_data_point_by_device_name(self, device_name):
         sql = "SELECT * FROM data_point_tbl WHERE device_name = '%s'" % device_name
+        try:
+            self._reConn()
+            self.cursor = self.conn.cursor(cursor=pymysql.cursors.DictCursor)
+            self.cursor.execute(sql)
+            results = self.cursor.fetchall()
+            self.cursor.close()
+            return results
+        except:
+            print(traceback.format_exc())
+            return None
+
+    def execute_sql(self, sql):
         try:
             self._reConn()
             self.cursor = self.conn.cursor(cursor=pymysql.cursors.DictCursor)

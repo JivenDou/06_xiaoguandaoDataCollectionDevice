@@ -1,18 +1,22 @@
 """
 @Date  :2021/5/21/00219:10:57
-@Desc  :
+@Desc  : 波浪传感器解析器
 """
-from logging_config import sm140_file_logger as logger
+from tools.format_value import format_value
+from logging_config import sm140_converter as logger
 import binascii
 
 from converter import Converter
 
 
 class NEMA0183Converter(Converter):
+    def __init__(self, name):
+        self._name = name
 
     def convert(self, config, data):
+        logger.info(f"[{self._name}]原始接收数据: len: {len(data)}, values: {data}")
         data = data.decode().split("\r\n")
-        logger.info(f"(波高传感器)原始接收数据：len:{len(data)}, data: {data}")
+        logger.info(f"[{self._name}]解码分割: len: {len(data)}, values: {data}")
         for i in data:
             if self.checksum(i):
                 res = self.check_type(config, i)
@@ -67,15 +71,14 @@ class NEMA0183Converter(Converter):
         data = data.split('*')
         # Splits up the NMEA data by comma
         data = data[0].split(',')
-        logger.info(f"进一步格式化数据(波高传感器)：len:{len(data)}, data: {data}")
+        logger.info(f"[{self._name}]进一步格式化数据: len: {len(data)}, values: {data}")
         if data[0] == '$PMIRWM':
             for index in config:
                 name = 'c' + str(index['serial_number'])
                 address = int(index['address'])
                 dict[name] = format_value(index, data[address])
-            logger.info(f"解析后数据(波高传感器)：len:{len(dict)}, dict: {dict}")
+            logger.info(f"[{self._name}]解析后数据: len: {len(dict)}, values: {dict}")
             return dict
-        # return data[0]
 
     def nmea2utc(self, data):
         '''
@@ -84,25 +87,6 @@ class NEMA0183Converter(Converter):
         time = data[1][0:2] + ':' + data[1][2:4] + ':' + data[1][4:6]
         date = '20' + data[9][4:6] + '-' + data[9][2:4] + '-' + data[9][0:2]
         return date + 'T' + time + 'Z'
-
-
-def format_value(index, value):
-    if value:
-        value = float(value)
-        divisor = index['divisor']
-        offset = index['offset']
-        low_limit = index['low_limit']
-        up_limit = index['up_limit']
-        if divisor:
-            value /= divisor
-        if offset:
-            value -= offset
-        if low_limit <= value <= up_limit:
-            return value
-        else:
-            return ''
-    else:
-        return ''
 
 
 '''        

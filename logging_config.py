@@ -12,47 +12,59 @@ LOGGING_CONFIG = dict(
     disable_existing_loggers=False,
     loggers={
         # 新曾自定义日志，用于数据采集程序
-        "console": {
+        "general": {
             "level": "INFO",
-            "handlers": ["console", "connector_file"],
+            "handlers": ["console", "general"],
             "propagate": True,
-            "qualname": "console.debug",
+            "qualname": "general.debug",
         },
-        "sm140_file": {
-            "level": "DEBUG",
-            "handlers": ["console", "sm140_file"],
+        "modbus_connector": {
+            "level": "INFO",
+            "handlers": ["console", "modbus_connector"],
             "propagate": True,
-            "qualname": "sm140.debug",
+            "qualname": "modbus_connector.debug",
         },
-        "wxt536_file": {
-            "level": "DEBUG",
-            "handlers": ["console", "wxt536_file"],
+        "tcp_connector": {
+            "level": "INFO",
+            "handlers": ["console", "tcp_connector"],
             "propagate": True,
-            "qualname": "wxt536.debug",
+            "qualname": "tcp_connector.debug",
         },
-        "adcp_file": {
+        "sm140_converter": {
             "level": "DEBUG",
-            "handlers": ["console", "adcp_file"],
+            "handlers": ["console", "sm140_converter"],
             "propagate": True,
-            "qualname": "adcp.debug",
+            "qualname": "sm140_converter.debug",
         },
-        "dandian_file": {
+        "wxt536_converter": {
             "level": "DEBUG",
-            "handlers": ["console", "dandian_file"],
+            "handlers": ["console", "wxt536_converter"],
             "propagate": True,
-            "qualname": "dandian.debug",
+            "qualname": "wxt536_converter.debug",
         },
-        "td266_file": {
+        "adcp_converter": {
             "level": "DEBUG",
-            "handlers": ["console", "td266_file"],
+            "handlers": ["console", "adcp_converter"],
             "propagate": True,
-            "qualname": "td266.debug",
+            "qualname": "adcp_converter.debug",
         },
-        "shuizhi_file": {
+        "cec21_converter": {
             "level": "DEBUG",
-            "handlers": ["console", "shuizhi_file"],
+            "handlers": ["console", "cec21_converter"],
             "propagate": True,
-            "qualname": "shuizhi.debug",
+            "qualname": "cec21_converter.debug",
+        },
+        "td266_converter": {
+            "level": "DEBUG",
+            "handlers": ["console", "td266_converter"],
+            "propagate": True,
+            "qualname": "td266_converter.debug",
+        },
+        "modbus_converter": {
+            "level": "DEBUG",
+            "handlers": ["console", "modbus_converter"],
+            "propagate": True,
+            "qualname": "modbus_converter.debug",
         },
     },
     handlers={
@@ -62,63 +74,81 @@ LOGGING_CONFIG = dict(
             "formatter": "generic",
             "stream": sys.stdout,
         },
-        "connector_file": {
+        "general": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/connector_log/connector_file.log',
+            'filename': 'log/general/general.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
             "backupCount": 20,
             "encoding": "utf-8"
         },
-        "sm140_file": {
+        "modbus_connector": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/sm140_log/sm140_file.log',
+            'filename': 'log/modbus_connector/modbus_connector.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
             "backupCount": 20,
             "encoding": "utf-8"
         },
-        "wxt536_file": {
+        "tcp_connector": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/wxt536_log/wxt536_log.log',
+            'filename': 'log/tcp_connector/tcp_connector.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
             "backupCount": 20,
             "encoding": "utf-8"
         },
-        "adcp_file": {
+        "sm140_converter": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/adcp_log/adcp_log.log',
+            'filename': 'log/sm140_converter/sm140_converter.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
             "backupCount": 20,
             "encoding": "utf-8"
         },
-        "dandian_file": {
+        "wxt536_converter": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/dandian_log/dandian_log.log',
+            'filename': 'log/wxt536_converter/wxt536_converter.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
             "backupCount": 20,
             "encoding": "utf-8"
         },
-        "td266_file": {
+        "adcp_converter": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/td266_log/td266_log.log',
+            'filename': 'log/adcp_converter/adcp_converter.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
             "backupCount": 20,
             "encoding": "utf-8"
         },
-        "shuizhi_file": {
+        "cec21_converter": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/shuizhi_log/shuizhi_log.log',
+            'filename': 'log/cec21_converter/cec21_converter.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
+        "td266_converter": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/td266_converter/td266_converter.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
+        "modbus_converter": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/modbus_converter/modbus_converter.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
@@ -129,16 +159,18 @@ LOGGING_CONFIG = dict(
     formatters={
         # 自定义文件格式化器
         "generic": {
-            "format": "%(asctime)s [%(filename)s:%(lineno)d] [%(levelname)s] %(message)s",
+            "format": "%(asctime)s {%(process)d(%(thread)d)} [%(filename)s:%(lineno)d] [%(levelname)s] %(message)s",
             "datefmt": "[%Y-%m-%d %H:%M:%S]",
             "class": "logging.Formatter",
         },
     },
 )
-logger = logging.getLogger("console")
-sm140_file_logger = logging.getLogger("sm140_file")
-wxt536_file_logger = logging.getLogger("wxt536_file")
-adcp_file_logger = logging.getLogger("adcp_file")
-dandian_file_logger = logging.getLogger("dandian_file")
-td266_file_logger = logging.getLogger("td266_file")
-shuizhi_file_logger = logging.getLogger("shuizhi_file")
+general = logging.getLogger("general")
+modbus_connector = logging.getLogger("modbus_connector")
+tcp_connector = logging.getLogger("tcp_connector")
+sm140_converter = logging.getLogger("sm140_converter")
+wxt536_converter = logging.getLogger("wxt536_converter")
+adcp_converter = logging.getLogger("adcp_converter")
+cec21_converter = logging.getLogger("cec21_converter")
+td266_converter = logging.getLogger("td266_converter")
+modbus_converter = logging.getLogger("modbus_converter")

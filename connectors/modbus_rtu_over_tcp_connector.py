@@ -1,3 +1,7 @@
+"""
+@Date  :2021/5/21/00219:10:57
+@Desc  : 目前此连接器用于的传感器有：insitu水质传感器，水质传感器，气象传感器
+"""
 import json
 import threading
 import queue
@@ -5,11 +9,10 @@ import time
 from modbus_tk import modbus_rtu_over_tcp
 from connector import Connector
 from event_storage import EventStorage
-from logging_config import logger
+from logging_config import modbus_connector as logger
 
 
 class ModbusRtuOverTcpConnector(Connector, threading.Thread):
-
     def __init__(self, name, config, converter):
         super().__init__()
         self._master = None
@@ -47,9 +50,9 @@ class ModbusRtuOverTcpConnector(Connector, threading.Thread):
     def _connect(self):
         try:
             self._master = modbus_rtu_over_tcp.RtuOverTcpMaster(host=self._ip, port=self._port)
-            logger.info(f"{self._ip}:{self._port} connect success!")
+            logger.info(f'Connect to [{self.name}]:[{self._ip}]:[{self._port}] success !')
         except Exception as e:
-            logger.error(f'Error in modbus_tcp_connector.__connect: {e}')
+            logger.info(f'Connect to [{self.name}]:[{self._ip}]:[{self._port}] failed:{e} !!!')
             self._connected = False
             self._reconnect()
 
@@ -57,13 +60,10 @@ class ModbusRtuOverTcpConnector(Connector, threading.Thread):
         while True:
             try:
                 self._master = modbus_rtu_over_tcp.RtuOverTcpMaster(host=self._ip, port=self._port)
-                logger.error('client start connect to host/port:{}'.format(self._port))
+                logger.info(f'Reconnect to [{self.name}]:[{self._ip}]:[{self._port}] success !')
                 break
-            except ConnectionRefusedError:
-                logger.error('modbus server refused or not started, reconnect to server in 5s .... host/port:{}'.format(self._port))
-                time.sleep(5)
             except Exception as e:
-                logger.error('do connect error:{}'.format(str(e)))
+                logger.error(f'Reconnect to [{self.name}]:[{self._ip}]:[{self._port}] failed:{e} !!! Continue reconnect in 5s..')
                 time.sleep(5)
 
     def close(self):
@@ -102,7 +102,7 @@ class ModbusRtuOverTcpConnector(Connector, threading.Thread):
             # 读寄存器
             length = int(command['length'])
             try:
-                self._master.set_timeout(2.0)  # modbus读取数据超时时间设置
+                self._master.set_timeout(3.0)  # modbus读取数据超时时间设置
                 self._master.set_verbose(True)
                 # print(device_id, ' ', function_code, " ", start_addr, " ", length)
                 receive_data = self._master.execute(device_id, function_code, start_addr, length)
@@ -113,7 +113,7 @@ class ModbusRtuOverTcpConnector(Connector, threading.Thread):
                 result = [device_id, datadict]
                 return result
             except Exception as e:
-                logger.error(f'An error occurred while executing the read register command:{e}')
+                logger.error(f'[{self.name}]: An error occurred while executing the read register command:{e}')
         elif function_code in (5, 6, 15, 16):
             # 写寄存器
             output_value = command['output_value']
@@ -130,21 +130,20 @@ class ModbusRtuOverTcpConnector(Connector, threading.Thread):
                         result = True
                 return result
             except Exception as e:
-                logger.error(f'An error occurred while executing the write register command:{e}')
+                logger.error(f'[{self.name}]: An error occurred while executing the write register command:{e}')
         else:
-            logger.error(f'Unsupported function code.')
+            logger.error(f'[{self.name}]: Unsupported function code.')
 
     def command_polling(self, command_list, resend_times=None):
         # msg = str(time.strftime("%Y-%m-%d %H:%M:%S"))
         for i in range(len(command_list)):
             command_item = command_list[i]
             if not self.__command_queue.empty():
-                write_command = self.__command_queue.get()  # 写命令来自数组
+                write_command = self.__command_queue.get()  # 写命令来自队列
                 try:
                     res = self.exec_command(command=write_command)
                 except Exception as e:
-                    logger.error(f"modbus_rtu,write:{e}")
-
+                    logger.error(f"[{self.name}]: modbus_rtu,write:{e}")
             else:
                 result = self.exec_command(command=command_item)
                 format_data = None

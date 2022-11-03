@@ -1,13 +1,7 @@
-import importlib
 import json
 import datetime
 import connectors
 import converters
-
-
-# name = "Test"
-# zz = connectors.modbus_connector.Test()
-# zz.f()
 
 
 class Utility:
@@ -42,7 +36,7 @@ class Utility:
         for config in configs:
             connector_config = config['connector_config']
             name = config['station_name']
-            converter = converters[config['converter']]()
+            converter = converters[config['converter']](name)
             connector = connectors[config['connector']](name, connector_config, converter)
             Utility.available_connectors[name] = connector
             connector.open()

@@ -1,16 +1,13 @@
 """
 @Date  :2021/5/21/00219:10:57
-@Desc  :
+@Desc  : 此连接器用于wxt536气象传感器、td266单点流速仪、sm140波浪传感器、adcp流速流向仪、cec26单点流速仪
 """
 import json
 import time
 import threading
 import socket
 import queue
-
-from modbus_tk import utils
-
-from logging_config import logger
+from logging_config import tcp_connector as logger
 from connector import Connector
 from event_storage import EventStorage
 
@@ -62,10 +59,10 @@ class TcpConnector(Connector, threading.Thread):
         self.__sock.settimeout(180)  # 设置超时时间3mins
         try:
             self.__sock.connect((self.__ip, self.__port))
-            logger.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+            logger.info(f'Connect to [{self.name}]:[{self.__ip}]:[{self.__port}] success !')
             self.__connected = True
         except Exception as e:
-            logger.info(f'Connect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
+            logger.info(f'Connect to [{self.name}]:[{self.__ip}]:[{self.__port}] failed:{e} !!!')
             self.__connected = False
             self.__reconnect()
 
@@ -80,10 +77,10 @@ class TcpConnector(Connector, threading.Thread):
                 self.__sock.settimeout(180)  # 设置超时时间3mins
                 self.__sock.connect((self.__ip, self.__port))
                 self.__connected = True
-                logger.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] success !')
+                logger.info(f'Reconnect to [{self.name}]:[{self.__ip}]:[{self.__port}] success !')
                 break
             except Exception as e:
-                logger.info(f'Reconnect to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
+                logger.info(f'Reconnect to [{self.name}]:[{self.__ip}]:[{self.__port}] failed:{e} !!! Continue reconnect in 5s..')
                 self.__connected = False
                 time.sleep(5)
 
@@ -106,7 +103,7 @@ class TcpConnector(Connector, threading.Thread):
             try:
                 self.__sock.send(data.encode(encoding='utf-8'))
             except Exception as e:
-                logger.info(f'Send command to [{self.get_name()}]:[{self.__ip}]:[{self.__port}] error:{e}')
+                logger.info(f'Send command to [{self.name}]:[{self.__ip}]:[{self.__port}] error:{e}')
 
     def exec_command(self, command):
         try:
@@ -127,7 +124,7 @@ class TcpConnector(Connector, threading.Thread):
                     if format_data and format_data != "error" and format_data != 'pass':
                         self.__storager.real_time_data_storage(format_data)
             except Exception as e:
-                logger.error(f'Other error occur [{self.get_name()}]:[{self.__ip}]:[{self.__port}]:{e}')
+                logger.error(f'Other error occur [{self.name}]:[{self.__ip}]:[{self.__port}]:{e}')
                 time.sleep(5)
                 self.__reconnect()
         else:

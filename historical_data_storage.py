@@ -2,7 +2,7 @@ import json
 import threading
 from event_storage import EventStorage
 import time
-from logging_config import logger
+from logging_config import general as logger
 
 
 class HistoricalDataStorage(threading.Thread):

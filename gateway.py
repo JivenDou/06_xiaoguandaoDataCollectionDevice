@@ -5,7 +5,7 @@ import time
 import os
 import wmi
 from sanic import Sanic
-from sanic_cors import CORS, cross_origin
+from sanic_cors import CORS
 from sanic import response
 
 # device import
@@ -14,9 +14,8 @@ from configuration import Configuration
 from utility import Utility
 from alarm import Alarm
 from historical_data_storage import HistoricalDataStorage
-from hard_disk_storage import HardDiskStorage
 from api_context import ApiContext
-from AES_crypt import decrypt, encrypt
+from AES_crypt import decrypt
 from logging_config import LOGGING_CONFIG
 import logging.config
 
@@ -31,8 +30,11 @@ for handler in handlers:
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 # --------------------------
-
+gateway_storage = EventStorage()
+connector_config = gateway_storage.get_connector_config()
+Utility.start_connectors(connector_config)
 app = Sanic(__name__)
+# app.config.CORS_ORIGINS = "*"
 CORS(app)
 
 
@@ -197,9 +199,6 @@ async def notify_server_started_after_five_seconds():
 
 
 if __name__ == "__main__":
-    gateway_storage = EventStorage()
-    connector_config = gateway_storage.get_connector_config()
-    Utility.start_connectors(connector_config)
     Alarm().start()
     HistoricalDataStorage().start()
     # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭

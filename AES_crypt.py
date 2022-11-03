@@ -77,7 +77,7 @@ if __name__ == '__main__':
 
     aescryptor = AESCrypt(passwd, AES.MODE_CBC, iv)  # CBC模式
     # aescryptor = Aescrypt(passwd,AES.MODE_ECB,"") # ECB模式
-    text = "root"
+    text = "zzZZ4144670.."
     en_text = aescryptor.aesencrypt(text)
     print("密文:", en_text)
     text = aescryptor.aesdecrypt(en_text)

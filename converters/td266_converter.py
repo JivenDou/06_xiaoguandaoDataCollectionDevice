@@ -1,28 +1,28 @@
-import json
-import re
-from logging_config import td266_file_logger as logger
+from tools.format_value import format_value
+from logging_config import td266_converter as logger
 
 from converter import Converter
 
 
 class TD266Converter(Converter):
+    def __init__(self, name):
+        self._name = name
+
     def convert(self, config, data):
         # 原始data: data = b'4420\t1194\t29.823\t104.507\t-7.471\t28.872\t253.153\t9.369\t1.816\t91.491\t-59.593\t100\t9.542\t9.589\t0.015\r\n'
         # 去除结尾\r\n: data = b'4420\t1194\t29.823\t104.507\t-7.471\t28.872\t253.153\t9.369\t1.816\t91.491\t-59.593\t100\t9.542\t9.589\t0.015'
         # decode('utf-8'): data = 4420	1194	29.823	104.507	-7.471	28.872	253.153	9.369	1.816	91.491	-59.593	100	9.542	9.589	0.015
         # split('\t'): data = ['4420', '1194', '29.823', '104.507', '-7.471', '28.872', '253.153', '9.369', '1.816', '91.491', '-59.593', '100', '9.542', '9.589', '0.015']
         try:
+            logger.info(f"[{self._name}]原始接收数据: len: {len(data)}, values: {data}")
             data = data.decode('utf-8').split('\t')
-            logger.info(f"(单点流速仪)原始数据: {data}")
+            logger.info(f"[{self._name}]解码分割: len: {len(data)}, values: {data}")
             dict = {}
             for index in config:
                 name = 'c' + str(index['serial_number'])
                 i = int(index['address'])
-                if index['divisor'] is None:
-                    dict[name] = float(data[i])
-                else:
-                    dict[name] = round((float(data[i]) / index['divisor']), 2)
-            logger.info(f"(单点流速仪)解析后数据：{data}")
+                dict[name] = format_value(index, data[i])
+            logger.info(f"[{self._name}]返回数据: len: {len(dict)}, values: {dict}")
             return dict
         except Exception as e:
             logger.error(e)

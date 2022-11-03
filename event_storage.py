@@ -68,6 +68,11 @@ class EventStorage:
         data = self.hardDiskStorage.get_in_situ_command()
         return data
 
+    # 执行自定义sql
+    def execute_sql(self, sql):
+        data = self.hardDiskStorage.execute_sql(sql)
+        return data
+
 
 class Networkerror(RuntimeError):
     def __init__(self, arg):

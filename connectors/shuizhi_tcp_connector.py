@@ -1,6 +1,6 @@
 """
 @Date  :2021/5/21/00219:10:57
-@Desc  :
+@Desc  : 原本用于insitu水质传感器的读取和解析，目前此连接器未启动，insitu读取和解析均为mudbus_rtu_over_tcp。
 """
 import binascii
 import threading
@@ -9,7 +9,7 @@ import struct
 import socket
 from connector import Connector
 from event_storage import EventStorage
-from logging_config import shuizhi_file_logger as logger
+# from logging_config import shuizhi_converter as logger
 from binascii import *
 from crcmod import *
 
