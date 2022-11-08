@@ -1,9 +1,9 @@
 {
   "hardDiskdataBase": {
     "ip": "127.0.0.1",
-    "username": "zz",
+    "username": "root",
     "password": "5BFkezzPY1C0/2/y2pMrag==\n",
-    "dataBaseName": "shucai"
+    "dataBaseName": "shucai_xiaoguandao"
   },
   "memoryDatabase": {
     "ip": "127.0.0.1",
