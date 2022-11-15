@@ -4,8 +4,7 @@
 @time: 2021/5/31 11:37
 @desc: http连接器
 """
-
-
+import datetime
 import json
 import queue
 import time
@@ -14,10 +13,10 @@ import threading
 import requests
 from connector import Connector
 from event_storage import EventStorage
-from logging_config import http_connector as logger
+from logging_config import ais_http_connector as logger
 
 
-class HttpConnector(Connector, threading.Thread):
+class ShuCaiHttpConnector(Connector, threading.Thread):
     __master = 0
     _disConnectTime = 0
 
@@ -35,6 +34,8 @@ class HttpConnector(Connector, threading.Thread):
         self.__last_save_time = 0
         self.__data_point_config = self.__storager.get_station_info(name)
         self.__url = config['url']
+        self.__before_seconds = config['before_seconds']
+        self._name = name
 
     def open(self):
         self.__stopped = False
@@ -43,16 +44,28 @@ class HttpConnector(Connector, threading.Thread):
     def run(self):
         self.__connected = True
         while True:
-            time.sleep(1)
+            time.sleep(self.__before_seconds)
+            now_time = datetime.datetime.now()
+            before_time = now_time - datetime.timedelta(seconds=self.__before_seconds)
+            post_data = {
+                "timeBegin": before_time.strftime("%H:%M:%S"),
+                "timeEnd": now_time.strftime("%H:%M:%S")
+            }
+            # print(post_data)
             data = []
             try:
-                result = requests.get(self.__url, timeout=0.5)
+                result = requests.post(self.__url, json=post_data, timeout=0.5)
                 data = json.loads(result.text)
             except Exception as e:
-                logger.error('shucai http connect error:{}'.format(str(e)))
+                logger.error(f'shucai http connect error:{repr(e)}')
                 time.sleep(5)
-            self.command_polling(data, resend_times=5)
-            
+            # 数据传入解析器
+            if data:
+                logger.info(f"data_len : {len(data)}")
+                self.__converter.convert(self._name, data)
+            else:
+                logger.info("data is None")
+
     def __connect(self):
         pass
 
@@ -72,7 +85,9 @@ class HttpConnector(Connector, threading.Thread):
         pass
 
     def command_polling(self, result, resend_times=None):
-        format_data = self.__converter.convert(self.__data_point_config, result)
+        format_data = None
+        if result:
+            format_data = self.__converter.convert(self.__data_point_config, result)
         if format_data:
             if format_data != "error" and format_data != 'pass':
                 # 往redis存储数据

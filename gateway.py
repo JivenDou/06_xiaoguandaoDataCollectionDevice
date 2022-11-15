@@ -199,8 +199,8 @@ CORS(app)
 
 
 if __name__ == "__main__":
-    # Alarm().start()
-    HistoricalDataStorage().start()
+    Alarm().start()
+    # HistoricalDataStorage().start()
     # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
     # app.add_task(notify_server_started_after_five_seconds())
     # app.run(host="0.0.0.0", port=8000)

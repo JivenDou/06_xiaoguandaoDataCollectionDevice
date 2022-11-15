@@ -18,11 +18,11 @@ LOGGING_CONFIG = dict(
             "propagate": True,
             "qualname": "general.debug",
         },
-        "http_connector": {
+        "ais_http_connector": {
             "level": "INFO",
-            "handlers": ["console", "http_connector"],
+            "handlers": ["console", "ais_http_connector"],
             "propagate": True,
-            "qualname": "http_connector.debug",
+            "qualname": "ais_http_connector.debug",
         },
         "shucai_converter": {
             "level": "DEBUG",
@@ -47,9 +47,9 @@ LOGGING_CONFIG = dict(
             "backupCount": 20,
             "encoding": "utf-8"
         },
-        "http_connector": {
+        "ais_http_connector": {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/http_connector/http_connector.log',
+            'filename': 'log/ais_http_connector/ais_http_connector.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
@@ -76,6 +76,6 @@ LOGGING_CONFIG = dict(
     },
 )
 general = logging.getLogger("general")
-http_connector = logging.getLogger("http_connector")
+ais_http_connector = logging.getLogger("ais_http_connector")
 
 shucai_converter = logging.getLogger("shucai_converter")
