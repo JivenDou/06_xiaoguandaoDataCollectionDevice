@@ -18,6 +18,8 @@ from api_context import ApiContext
 from AES_crypt import decrypt
 from logging_config import LOGGING_CONFIG
 import logging.config
+from xiaoguandao_upLoadNewData import XiaoGuanDaoUpLoadNewData
+from xiaoguandao_upLoadNewData_realAis import XiaoGuanDaoUpLoadNewDataRealAis
 
 # logging config
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -199,8 +201,12 @@ CORS(app)
 
 
 if __name__ == "__main__":
-    Alarm().start()
-    # HistoricalDataStorage().start()
+    # Alarm().start()
+    HistoricalDataStorage().start()
+    # 实时上传云服务器
+    XiaoGuanDaoUpLoadNewData().start()
+    XiaoGuanDaoUpLoadNewDataRealAis().start()
+
     # 气象仪降雨量每日清零：一号打开，二号关闭，三号关闭
     # app.add_task(notify_server_started_after_five_seconds())
     # app.run(host="0.0.0.0", port=8000)

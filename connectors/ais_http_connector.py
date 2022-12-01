@@ -34,6 +34,7 @@ class AisHttpConnector(Connector, threading.Thread):
         self.__last_save_time = 0
         self.__data_point_config = self.__storager.get_station_info(name)
         self.__url = config['url']
+        # 几秒读一次 读几秒内的数据
         self.__before_seconds = config['before_seconds']
         self._name = name
 
@@ -44,7 +45,6 @@ class AisHttpConnector(Connector, threading.Thread):
     def run(self):
         self.__connected = True
         while True:
-            time.sleep(self.__before_seconds)
             now_time = datetime.datetime.now()
             before_time = now_time - datetime.timedelta(seconds=self.__before_seconds)
             post_data = {
@@ -57,15 +57,15 @@ class AisHttpConnector(Connector, threading.Thread):
                 result = requests.post(self.__url, json=post_data, timeout=0.5)
                 data = json.loads(result.text)
             except Exception as e:
-                logger.error(f'shucai http connect error:{repr(e)}')
-                time.sleep(5)
+                logger.error(f'{self._name} http connect error:{repr(e)}')
             # 数据传入解析器
             if data:
                 # logger.info(f"data : {data}")
-                logger.info(f"data_len : {len(data)}")
+                logger.info(f"now_time: {now_time.strftime('%H:%M:%S')},data_len : {len(data)}")
                 self.__converter.convert(self._name, data)
             else:
-                logger.info("data is None")
+                logger.info(f"{self._name} data is None")
+            time.sleep(self.__before_seconds)
 
     def __connect(self):
         pass

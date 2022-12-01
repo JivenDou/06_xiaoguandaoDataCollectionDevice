@@ -7,7 +7,7 @@
 
 from converter import Converter
 from event_storage import EventStorage
-from logging_config import shucai_converter as logger
+from logging_config import ais_converter as logger
 
 
 class AisConverter(Converter):
@@ -16,8 +16,8 @@ class AisConverter(Converter):
         self.__storager = EventStorage()
         self._name = name
 
-    def convert(self, name, data):
-        table_name = "table_" + name
+    def convert(self, config, data):
+        table_name = "xiaoguandao_" + self._name + "_tbl"
         try:
             for info in data:
                 # 存实时数据
@@ -31,7 +31,7 @@ class AisConverter(Converter):
                 sql = sql.replace("'None'", "NULL").replace("None", "NULL")
                 self.__storager.execute_sql(sql)
                 # 存历史数据
-                sql = f"INSERT INTO ais_data_history (times, mmsi, lon, lat, speed, course, heading) " \
+                sql = f"INSERT INTO xiaoguandao_ais_history_tbl (times, mmsi, lon, lat, speed, course, heading) " \
                       f"VALUES ('{info['times']}', '{info['mmsi']}', {info['lon']}, {info['lat']}, {info['speed']}, {info['course']}, {info['heading']})"
                 sql = sql.replace("'None'", "NULL").replace("None", "NULL")
                 self.__storager.execute_sql(sql)

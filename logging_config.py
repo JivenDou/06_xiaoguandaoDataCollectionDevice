@@ -18,6 +18,18 @@ LOGGING_CONFIG = dict(
             "propagate": True,
             "qualname": "general.debug",
         },
+        "http_connector": {
+            "level": "INFO",
+            "handlers": ["console", "http_connector"],
+            "propagate": True,
+            "qualname": "http_connector.debug",
+        },
+        "tk009_http_connector": {
+            "level": "INFO",
+            "handlers": ["console", "tk009_http_connector"],
+            "propagate": True,
+            "qualname": "tk009_http_connector.debug",
+        },
         "ais_http_connector": {
             "level": "INFO",
             "handlers": ["console", "ais_http_connector"],
@@ -30,6 +42,24 @@ LOGGING_CONFIG = dict(
             "propagate": True,
             "qualname": "shucai_converter.debug",
         },
+        "ais_converter": {
+            "level": "DEBUG",
+            "handlers": ["console", "ais_converter"],
+            "propagate": True,
+            "qualname": "ais_converter.debug",
+        },
+        "tk009_converter": {
+            "level": "DEBUG",
+            "handlers": ["console", "tk009_converter"],
+            "propagate": True,
+            "qualname": "tk009_converter.debug",
+        },
+        "upload_data": {
+            "level": "DEBUG",
+            "handlers": ["console", "upload_data"],
+            "propagate": True,
+            "qualname": "upload_data.debug",
+        },
     },
     handlers={
         # 数据采集程序控制台输出handler
@@ -41,6 +71,24 @@ LOGGING_CONFIG = dict(
         "general": {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': 'log/general/general.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
+        "http_connector": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/http_connector/http_connector.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
+        "tk009_http_connector": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/tk009_http_connector/tk009_http_connector.log',
             'maxBytes': 10 * 1024 * 1024,
             'delay': True,
             "formatter": "generic",
@@ -65,6 +113,33 @@ LOGGING_CONFIG = dict(
             "backupCount": 20,
             "encoding": "utf-8"
         },
+        "ais_converter": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/ais_converter/ais_converter.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
+        "tk009_converter": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/tk009_converter/tk009_converter.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
+        "upload_data": {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/upload_data/upload_data.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'delay': True,
+            "formatter": "generic",
+            "backupCount": 20,
+            "encoding": "utf-8"
+        },
     },
     formatters={
         # 自定义文件格式化器
@@ -76,6 +151,10 @@ LOGGING_CONFIG = dict(
     },
 )
 general = logging.getLogger("general")
+http_connector = logging.getLogger("http_connector")
+tk009_http_connector = logging.getLogger("tk009_http_connector")
 ais_http_connector = logging.getLogger("ais_http_connector")
-
 shucai_converter = logging.getLogger("shucai_converter")
+ais_converter = logging.getLogger("ais_converter")
+tk009_converter = logging.getLogger("tk009_converter")
+upload_data = logging.getLogger("upload_data")

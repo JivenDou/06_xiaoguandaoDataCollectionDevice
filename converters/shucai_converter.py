@@ -15,12 +15,13 @@ class ShucaiConverter(Converter):
         self.__storager = EventStorage()
         self._name = name
 
-    def convert(self, name, data):
-        table_name = "table_" + name
+    def convert(self, config, data):
         try:
-            k_list = [key for key in data.keys()]
-            v_list = [str(data[key]) for key in data.keys()]
-            sql = f"INSERT INTO {table_name} ({','.join(k_list)}) VALUE ({','.join(v_list)})"
-            self.__storager.execute_sql(sql)
+            for d in data:
+                if data[d] is None or data[d] == '':
+                    data[d] = ''
+                else:
+                    data[d] = float(data[d])
+            return data
         except Exception as e:
             logger.error(repr(e))
