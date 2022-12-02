@@ -10,11 +10,8 @@
 
 
 from event_storage import EventStorage
-from log import OutPutLog
 
 
-
-save_log = OutPutLog()
 operate_mysql = EventStorage()
 
 
